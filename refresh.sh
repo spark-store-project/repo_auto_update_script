@@ -1,4 +1,4 @@
-REPOPATH="/media/root/其它/self_project/store.shenmo.tech" #设置软件源目录
+REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
 cd $REPOPATH #进入根目录
 pwd #显示路径
 #生成文件
@@ -35,4 +35,3 @@ do
         cd ..
     fi
 done
-
