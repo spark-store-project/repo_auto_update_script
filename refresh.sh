@@ -1,11 +1,21 @@
 REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
+while true; do
 cd $REPOPATH #进入根目录
 pwd #显示路径
 #生成文件
-apt-ftparchive packages . > Packages
-apt-ftparchive release . > Release
+#apt-ftparchive packages . > Packages
+#apt-ftparchive release . > Release
+
+if [ -f "${REPOPATH}/refresh.flag" ];then
+#删除flag
+rm ${REPOPATH}/refresh.flag
+#进入update阶段
+
+find "${REPOPATH}" -name '*.update' -print0 | xargs -0 file-rename -f -v 's/\.update$//'
+#以上来源abcfy2
 
 cd store #进入store目录
+
 for i in `ls` #for循环遍历store目录下的文件
 do
     if [ -d $i ] ; then #如果当前变量的是目录
@@ -25,7 +35,7 @@ do
                     fi
                 fi
             done
-            
+
             if [ $isFind -eq "1" ];then #判断找到的文件是否是全空的
                 sed -i '$d' applist.json #删除最后一行的逗号
             fi
@@ -34,4 +44,13 @@ do
         fi
         cd ..
     fi
+
+done
+date
+touch ${REPOPATH}/finish-refresh.flag
+
+#以上来源pluto
+else 
+sleep 30
+fi
 done
