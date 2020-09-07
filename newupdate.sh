@@ -1,7 +1,12 @@
+#文档：updating.flag：刷新锁定
+#ready.flag：存在时表示仓库已就绪，用于下游同步trigger
+#refresh.flag和finish-refresh.flag：和refresh.sh交互
+
 REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
 FRESH=0 #刷新状态初始化
 cd $REPOPATH #进入根目录
 touch updating.flag
+rm -f ready.flag
 pwd #显示路径
 
 rm ../submit/仓库状态：就绪
@@ -58,3 +63,4 @@ rsync -rztP --delete-after --port=21901 /home/ftp/deepin-community-store/ spark@
 rm ../submit/仓库状态：发布中
 echo ready > ../submit/仓库状态：就绪
 rm $REPOPATH/updating.flag
+touch $REPOPATH/ready.flag
