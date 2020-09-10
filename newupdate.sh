@@ -3,6 +3,13 @@
 #refresh.flag和finish-refresh.flag：和refresh.sh交互
 
 REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
+
+if [ ! -f $REPOPATH/ready.flag ]; then
+echo "检测到其他同步进程,或者上次同步未完成,退出同步"
+echo "等待其他同步进程完成或者 touch $REPOPATH/ready.flag"
+exit 0 
+fi
+
 FRESH=0 #刷新状态初始化
 cd $REPOPATH #进入根目录
 touch updating.flag
