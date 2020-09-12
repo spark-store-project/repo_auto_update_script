@@ -67,6 +67,9 @@ rsync -rztP --delete-after --port=21901 /home/ftp/deepin-community-store/ spark@
 #rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@47.240.118.5::spark --password-file=/etc/rsync_passwd
 #rsync -avz --delete -P /home/ftp/deepin-community-store/ spark@app-store.githall.com::spark --password-file=/etc/rsync_passwd
 
+# 同步json
+bash /root/jsonrsy.sh
+
 rm ../submit/仓库状态：发布中
 echo ready > ../submit/仓库状态：就绪
 rm $REPOPATH/updating.flag
