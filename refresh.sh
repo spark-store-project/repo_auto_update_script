@@ -22,7 +22,7 @@ do
         cd $i #进入目录
         if [ -f 'applist.json' ];then #如果存在特定文件
             rm applist.json #删除
-            cat `find . -name 'app.json' -type f`|jq -s > applist.json #查找所有的json文件
+            cat `find . -name 'app.json' -type f`|jq -s . > applist.json #查找所有的json文件
             echo "商店信息写入完毕"
         fi
         cd ..
