@@ -3,6 +3,13 @@
 #refresh.flag和finish-refresh.flag：和refresh.sh交互
 
 REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
+
+if [ ! -f $REPOPATH/ready.flag ]; then
+echo "检测到其他同步进程,或者上次同步未完成,退出同步"
+echo "等待其他同步进程完成或者 touch $REPOPATH/ready.flag"
+exit 0 
+fi
+
 FRESH=0 #刷新状态初始化
 cd $REPOPATH #进入根目录
 touch updating.flag
@@ -59,6 +66,9 @@ rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@203.195.233.60::
 rsync -rztP --delete-after --port=21901 /home/ftp/deepin-community-store/ spark@198.100.145.152::spark --password-file=/etc/rsyncpasswd
 #rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@47.240.118.5::spark --password-file=/etc/rsync_passwd
 #rsync -avz --delete -P /home/ftp/deepin-community-store/ spark@app-store.githall.com::spark --password-file=/etc/rsync_passwd
+
+# 同步json
+bash /root/jsonrsy.sh
 
 rm ../submit/仓库状态：发布中
 echo ready > ../submit/仓库状态：就绪
