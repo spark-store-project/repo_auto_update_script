@@ -3,6 +3,7 @@ FROM_DIR=/home/ftp/deepin-community-store/
 TO_DIR=/home/ftp/json/
 
 # 从gitee上拉去已合并的pr
+cd $TO_DIR
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/jerrygithub
 git pull origin
