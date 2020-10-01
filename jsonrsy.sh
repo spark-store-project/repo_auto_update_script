@@ -16,15 +16,8 @@ find store -type d -exec mkdir -p $TO_DIR\{\} \;
 for i in `find store -iname 'app.json' -type f`
 do
 di=${i%/*}
-filetimestamp_old=`stat -c %Y $TO_DIR$di/app.json`
-cp $i $TO_DIR$di/app.json -pu  # -u 表示只更新  -p 表示保留时间戳
-filetimestamp_new=`stat -c %Y $TO_DIR$di/app.json`
-timecha=$[$filetimestamp_new - $filetimestamp_old]
-echo $timecha
-if [ $timecha -gt 60 ];then   #如果cp -up 前后两个文件的时间戳大于60s， 则说明app.json 发生了变动
-echo 'app.json信息发生变动'
-cp $i $TO_DIR$di/app.en.json  #app.json更新则更新app.en.json
-fi
+cp $i $TO_DIR$di/app.json -u  # -u 表示只有当源文件比目标文件新时，才会更新，这避免了冲突（我之前居然没有意识到）
+cp $i $TO_DIR$di/app.en.json -u #app.json更新则更新app.en.json
 done
 echo "从仓库更新完毕"
 
