@@ -16,8 +16,8 @@ find store -type d -exec mkdir -p $TO_DIR\{\} \;
 for i in `find store -iname 'app.json' -type f`
 do
 di=${i%/*}
-cp $i $TO_DIR$di/app.json -u  # -u 表示只有当源文件比目标文件新时，才会更新，这避免了冲突（我之前居然没有意识到）
-cp $i $TO_DIR$di/app.en.json -u #app.json更新则更新app.en.json
+cp $i $TO_DIR$di/app.json -u  # -u 表示只有当源文件比目标文件新(或者目标文件不存在)时，才会更新，这避免了冲突（我之前居然没有意识到）
+cp $i $TO_DIR$di/app.en.json -u
 done
 echo "从仓库更新完毕"
 
