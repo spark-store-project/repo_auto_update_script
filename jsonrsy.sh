@@ -47,4 +47,4 @@ git commit -m "auto push"
 git push origin
 
 # 同步到下游
-rsync -rztP --delete-after /home/ftp/json/  spark@101.132.134.206::json --password-file=/etc/rsyncpasswd
+rsync -rztP --delete-after /home/ftp/json/  spark@101.132.134.206::json --password-file=/etc/rsyncpasswd --exclude ".git*"
