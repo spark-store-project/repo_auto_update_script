@@ -23,9 +23,8 @@ echo syncing > ../submit/仓库状态：同步中
 /root/ossutil/ossutil64 cp /home/ftp/deepin-community-store/ oss://spark-store-2/ -ru --config-file=/root/.ossutilconfig
 # rsync
 # 镜像1
-rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@203.195.233.60::spark --password-file=/etc/rsyncpasswd
+#rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@203.195.233.60::spark --password-file=/etc/rsyncpasswd
 # 镜像2
-rsync -rztP --delete-after --port=21901 /home/ftp/deepin-community-store/ spark@198.100.145.152::spark --password-file=/etc/rsyncpasswd
 #rsync -avz -P  /home/ftp/deepin-community-store/ spark@47.240.118.5::spark --password-file=/etc/rsync_passwd
 #rsync -avz -P /home/ftp/deepin-community-store/ spark@app-store.githall.com::spark --password-file=/etc/rsync_passwd
 #新加的
@@ -33,6 +32,7 @@ rsync -rztP --delete-after --port=21901 /home/ftp/deepin-community-store/ spark@
 
 rm ../submit/仓库状态：同步中
 echo hashing > ../submit/仓库状态：哈希校验
+echo "第一遍同步已经完成，开始刷新apt"
 #生成文件
 apt-ftparchive packages . > Packages
 sed -i 's@\./@@' Packages
@@ -61,9 +61,8 @@ echo publishing > ../submit/仓库状态：发布中
 /root/ossutil/ossutil64 cp /home/ftp/deepin-community-store/ oss://spark-store-2/ -ru --config-file=/root/.ossutilconfig
 #Rsync
 # 镜像1
-rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@203.195.233.60::spark --password-file=/etc/rsyncpasswd
+#rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@203.195.233.60::spark --password-file=/etc/rsyncpasswd
 # 镜像2
-rsync -rztP --delete-after --port=21901 /home/ftp/deepin-community-store/ spark@198.100.145.152::spark --password-file=/etc/rsyncpasswd
 #rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@47.240.118.5::spark --password-file=/etc/rsync_passwd
 #rsync -avz --delete -P /home/ftp/deepin-community-store/ spark@app-store.githall.com::spark --password-file=/etc/rsync_passwd
 
