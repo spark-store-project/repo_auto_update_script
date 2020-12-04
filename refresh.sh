@@ -1,11 +1,13 @@
 REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
-while true; do
 cd $REPOPATH #进入根目录
+echo "星火刷新daemon守护启动，已经进入仓库目录，目录为"
 pwd #显示路径
+echo "进入待命状态"
 #生成文件
 #apt-ftparchive packages . > Packages
 #apt-ftparchive release . > Release
 
+while true; do
 if [ -f "${REPOPATH}/refresh.flag" ];then
 #删除flag
 rm ${REPOPATH}/refresh.flag
@@ -22,13 +24,15 @@ do
         cd $i #进入目录
         if [ -f 'applist.json' ];then #如果存在特定文件
             rm applist.json #删除
-            cat `find . -name 'app.json' -type f`|jq -s . > applist.json #查找所有的json文件
+            cat `find . -name 'app.json' -type f`|jq -s . > applist.json
+            #查找所有的json文件
             echo "商店信息写入完毕"
         fi
         cd ..
     fi
 
 done
+
 date
 touch ${REPOPATH}/finish-refresh.flag
 
