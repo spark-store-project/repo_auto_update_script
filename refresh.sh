@@ -1,8 +1,10 @@
 REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
 cd $REPOPATH #进入根目录
+echo "================================================"
 echo "星火刷新daemon守护启动，已经进入仓库目录，目录为"
 pwd #显示路径
 echo "守护模式已经开启，正在持续检测旗帜信号"
+echo "================================================"
 #生成文件
 #apt-ftparchive packages . > Packages
 #apt-ftparchive release . > Release
@@ -34,9 +36,12 @@ do
     fi
 
 done
+echo "================================================"
 echo "所有分类遍历完毕，json信息已经整合完成，刷新完毕"
 touch ${REPOPATH}/finish-refresh.flag
+sleep 1
 echo "刷新进程结束，插入finish-refresh.flag以便其他进程读取"
+echo "================================================"
 sleep 3
 reset
 echo "星火刷新daemon守护已完成刷新"
