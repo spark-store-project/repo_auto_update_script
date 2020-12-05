@@ -17,7 +17,7 @@ rm ${REPOPATH}/refresh.flag
 #进入update阶段
 echo "开始刷新第一阶段：处理旧式投稿工具的.update文件"
 find "${REPOPATH}" -name '*.update' -print0 | xargs -0 file-rename -f -v 's/\.update$//'
-echo "刷新第一阶段完成"
+echo ".update已经去除，刷新第一阶段完成"
 #以上来源abcfy2
 echo "开始刷新第二阶段：json合并"
 cd store #进入store目录
@@ -36,10 +36,15 @@ do
     fi
 
 done
-echo "================================================"
-echo "所有分类遍历完毕，json信息已经整合完成，刷新完毕"
+echo "所有分类遍历完毕，json信息已经整合完成，刷新第二阶段完毕"
+
+# 同步json
+echo "开始刷新第三阶段：同步推送"
+bash /root/jsonrsy.sh
 touch ${REPOPATH}/finish-refresh.flag
-sleep 1
+
+sleep 2
+echo "================================================"
 echo "刷新进程结束，插入finish-refresh.flag以便其他进程读取"
 echo "================================================"
 sleep 3
