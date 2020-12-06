@@ -25,6 +25,8 @@ echo syncing > ../submit/仓库状态：同步中
 #先同步,不删除
 #ossutil 用 ossutil 同步到oss而不是rsync 效率更高
 /root/ossutil/ossutil64 cp /home/ftp/deepin-community-store/ oss://spark-store-2/ -ru --config-file=/root/.ossutilconfig
+#同步到google drive 
+rclone sync deepin-community-store store:/ --transfers=1
 # rsync
 # 镜像1
 #rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@203.195.233.60::spark --password-file=/etc/rsyncpasswd
@@ -70,6 +72,8 @@ echo publishing > ../submit/仓库状态：发布中
 
 #ossutil
 /root/ossutil/ossutil64 cp /home/ftp/deepin-community-store/ oss://spark-store-2/ -ru --config-file=/root/.ossutilconfig
+#同步到google drive 
+rclone sync deepin-community-store store:/ --transfers=1
 #Rsync
 # 镜像1
 #rsync -avz --delete -P  /home/ftp/deepin-community-store/ spark@203.195.233.60::spark --password-file=/etc/rsyncpasswd
