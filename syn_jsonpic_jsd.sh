@@ -1,5 +1,5 @@
-FROM_DIR=/home/ftp/deepin-community-store/
-TO_DIR=/home/ftp/jsonpic/
+FROM_DIR=/home/ftp/spark-store/
+TO_DIR=/home/ftp/jsonpng/
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/jerrygithub

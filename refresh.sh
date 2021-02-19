@@ -1,4 +1,4 @@
-REPOPATH="/home/ftp/deepin-community-store" #设置软件源目录
+REPOPATH="/home/ftp/spark-store" #设置软件源目录
 cd $REPOPATH #进入根目录
 echo "================================================"
 echo "星火刷新daemon守护启动，已经进入仓库目录，目录为"
