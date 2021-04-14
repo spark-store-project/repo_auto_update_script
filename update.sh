@@ -23,8 +23,14 @@ echo "仓库状态更新：就绪--->同步中"
 #rm ../submit/仓库状态：就绪
 #echo syncing > ../submit/仓库状态：同步中
 #先同步,不删除
-#ossutil 用 ossutil 同步到oss而不是rsync 效率更高
+
+#ossutil 这个是备份
 ossutil cp /home/ftp/spark-store/ oss://spark-store-2/ -ru --config-file=/root/.ossutilconfig
+
+
+# 正式的OSS
+ossutil sync /home/ftp/spark-store/ oss://spark-store/ -uf  --delete --config-file=/root/.ossutilconfig
+
 
 # rsync
 # 镜像1
@@ -69,8 +75,13 @@ echo "检测到finish-refresh.flag旗帜，仓库状态更新：刷新商店应�
 #echo publishing > ../submit/仓库状态：发布中
 
 
-#ossutil
+#ossutil 这个是备份
 ossutil cp /home/ftp/spark-store/ oss://spark-store-2/ -ru --config-file=/root/.ossutilconfig
+
+
+# 正式的OSS
+ossutil sync /home/ftp/spark-store/ oss://spark-store/ -uf  --delete --config-file=/root/.ossutilconfig
+
 
 #Rsync
 # 镜像1
@@ -79,11 +90,6 @@ ossutil cp /home/ftp/spark-store/ oss://spark-store-2/ -ru --config-file=/root/.
 #rsync -avz --delete -P  /home/ftp/spark-store/ spark@47.240.118.5::spark --password-file=/etc/rsync_passwd
 #rsync -avz --delete -P /home/ftp/spark-store/ spark@app-store.githall.com::spark --password-file=/etc/rsync_passwd
 
-
-#同步json
-
-rsync -rztP --delete-after /home/ftp/spark-store/  spark@101.132.134.206::json \
- --password-file=/etc/rsyncpasswd  --include "*/"  --include "*.json" --exclude='*'
 
 #同步json png
 bash /root/syn_jsonpic_jsd.sh
