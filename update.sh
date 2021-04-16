@@ -74,6 +74,8 @@ echo "检测到finish-refresh.flag旗帜，仓库状态更新：刷新商店应�
 #rm ../submit/仓库状态：刷新商店应用列表
 #echo publishing > ../submit/仓库状态：发布中
 
+# 生成index 文件
+tree -s -v --du -h -H ./ -o /home/ftp/spark-store/index.html -I "static|*.deb|depends|oss*|*zip"
 
 #ossutil 这个是备份
 ossutil cp /home/ftp/spark-store/ oss://spark-store-2/ -ru --config-file=/root/.ossutilconfig
