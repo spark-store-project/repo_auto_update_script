@@ -22,7 +22,6 @@ EOF
 
 #########################检测参数功能#############################
 parse_args() {
-    FFMPEG_PRE_OPTS="-hide_banner"
     while [ $# -gt 0 ]; do
         case "$1" in
         -h|--help)
