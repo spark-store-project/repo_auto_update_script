@@ -1,0 +1,122 @@
+#/bin/bash 
+
+help() {
+    cat <<EOF
+用法：$0 [-h|--help] [-i|--in] [-o|out] [-t|-tmpdir] 
+-h|--help     显示这个帮助
+-i|--in       输入的文件路径
+-o|--out      输出的文件路径，默认为运行目录
+-t|--tmpdir   设置解包路径，默认为运行目录
+
+如果没有设置参数，将按照 [输入路径] [输出路径] [解包路径] 的顺序读取
+
+例子：
+$0 -i ./spark-store_3.0.3-13_amd64.deb -o ./ -t ./
+$0 ./spark-store_3.0.3-13_amd64.deb ./ ./
+$0 ./spark-store_3.0.3-13_amd64.deb
+
+EOF
+}
+
+parse_args() {
+    FFMPEG_PRE_OPTS="-hide_banner"
+    while [ $# -gt 0 ]; do
+        case "$1" in
+        -h|--help)
+            help
+            exit
+            ;;
+        -i|--in)
+            DEBPATH="$2"
+            shift
+            ;;
+		-o|--out)
+			OUTPATH="$2"
+			shift
+			;;
+		-t|--tmpdir)
+			TMPDIR="$2"
+			shift
+			;;
+        *)
+            DEBPATH="$1"
+			OUTPATH="$2"
+			TMPDIR="$3"
+			break
+			#没有参数就读完退出
+            ;;
+    esac
+    shift
+    done
+}
+
+echo "repack-zstd script. Copyright The Spark Project 2022-Now"
+echo
+
+#参考自abcfy2的脚本
+#init 
+DEBPATH=""
+OUTPATH=""
+TMPDIR=""
+
+
+#检测是否合法
+
+parse_args "$@"
+
+if [ "$1" = "" ];then
+	echo "没有任何输入，退出"
+	echo "可使用$0 -h 来查看帮助"
+	exit
+fi
+
+if [ "$DEBPATH" = "" ];then
+	echo "没有检测到输入路径，退出"
+	echo "可使用$0 -h 来查看帮助"
+	exit
+fi
+
+if [ ! -e "$DEBPATH" ];then
+	echo "输入的位置无效"
+	exit
+fi
+
+
+
+if [ "$OUTPATH" = "" ];then
+	echo "没有检测到输出目录，默认使用运行目录"
+	OUTPATH=`pwd`
+fi
+
+if [ "$TMPDIR" = "" ];then
+	echo "没有检测到解包目录，默认使用运行目录"
+	TMPDIR=`pwd`
+fi
+
+if [ ! -d "$OUTPATH" ];then
+	echo "输出目录无效，退出"
+	exit 
+fi
+##################################################
+# 检测文件类型
+
+iszstd=`file "$DEBPATH" | grep tar.zs`
+
+##################################################
+#判断是否为zstd并执行相关操作
+
+if [ "$iszstd" != "" ];then
+	echo "这是zstd包！解压并重新打包"
+	mkdir -p "$TMPDIR/unpack-dir"
+	dpkg -X "$DEBPATH" "$TMPDIR/unpack-dir"
+	dpkg -e "$DEBPATH" "$TMPDIR/unpack-dir/DEBIAN"
+	dpkg-deb -Z xz  -b "$TMPDIR/unpack-dir/" "$OUTPATH"
+	echo 重打包已完成，删除tmp
+	rm -rf "$TMPDIR/unpack-dir"
+	exit
+	
+else
+	echo "这不是zstd包！移动到输出位置"
+	mv "$DEBPATH" "$OUTPATH"
+fi
+
