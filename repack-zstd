@@ -10,8 +10,14 @@ help() {
 -t|--tmpdir   设置解包路径，默认为运行目录
 
 如果没有设置参数，将按照 [输入路径] [输出路径] [解包路径] 的顺序读取
-
-例子：
+--------------------------------------------------------------------
+Usage: $0 [-h|--help] [-i|--in] [-o|out] [-t|-tmpdir] 
+-h|--help     Show this text
+-i|--in       The input file path
+-o|--out      The ourput file directory, defalut is current dir
+-t|--tmpdir   The unpack directory, defalut is current dir
+--------------------------------------------------------------------
+例子 Examples：
 $0 -i ./spark-store_3.0.3-13_amd64.deb -o ./ -t ./
 $0 ./spark-store_3.0.3-13_amd64.deb ./ ./
 $0 ./spark-store_3.0.3-13_amd64.deb
@@ -72,17 +78,22 @@ parse_args "$@"
 if [ "$1" = "" ];then
 	echo "没有任何输入，退出"
 	echo "可使用$0 -h 来查看帮助"
+    echo "No input detected. Exit"
+    echo "Use $0 -h to get help"
 	exit
 fi
 
 if [ "$DEBPATH" = "" ];then
 	echo "没有检测到输入路径，退出"
 	echo "可使用$0 -h 来查看帮助"
+    echo "No input path detected. Exit"
+    echo "Use $0 -h to get help"
 	exit
 fi
 
 if [ ! -e "$DEBPATH" ];then
-	echo "输入的位置无效"
+	echo "错误：输入的位置无效"
+    echo "E: Invalid input file path"
 	exit
 fi
 
@@ -90,21 +101,25 @@ fi
 
 if [ "$OUTPATH" = "" ];then
 	echo "没有检测到输出目录，默认使用运行目录"
+    echo "W: No output path detected. Use current directory as default"
 	OUTPATH=`pwd`
 fi
 
 if [ "$TMPDIR" = "" ];then
 	echo "没有检测到解包目录，默认使用运行目录"
+    echo "W: No unpack directory detected. Use current directory as default"
 	TMPDIR=`pwd`
 fi
 
 if [ ! -d "$OUTPATH" ];then
-	echo "输出目录无效，退出"
+	echo "错误：输出目录无效，退出"
+    echo "E: Invalid output path. Exit"
 	exit 
 fi
 
 if [ ! -d "$TMPDIR" ];then
-	echo "解包目录无效，退出"
+	echo "错误：解包目录无效，退出"
+    echo "E: Invalid unpack directory. Exit"
 	exit 
 fi
 ##################################################
@@ -118,16 +133,19 @@ iszstd=`file "$DEBPATH" | grep tar.zs`
 
 if [ "$iszstd" != "" ];then
 	echo "这是zstd包！解压并重新打包"
+    echo "This is debian package with zstd! Unpack and repack..."
 	mkdir -p "$TMPDIR/unpack-dir"
 	dpkg -X "$DEBPATH" "$TMPDIR/unpack-dir"
 	dpkg -e "$DEBPATH" "$TMPDIR/unpack-dir/DEBIAN"
 	dpkg-deb -Z xz  -b "$TMPDIR/unpack-dir/" "$OUTPATH"
 	echo 重打包已完成，删除tmp
+    echo "Repack finished. Remove tmp dir"
 	rm -rf "$TMPDIR/unpack-dir"
 	exit
 	
 else
 	echo "这不是zstd包！移动到输出位置"
+    echo "This is NOT debian package with zstd ! Move the file to output path..."
 	mv "$DEBPATH" "$OUTPATH"
 fi
 
