@@ -1,4 +1,4 @@
-#/bin/bash 
+#/bin/bash -e
 
 #########################帮助文件#################################
 help() {
@@ -62,6 +62,7 @@ parse_args() {
 
 #########################检测参数结束#############################
 #以上参考自abcfy2的脚本
+
 
 
 
@@ -137,8 +138,8 @@ if [ "$iszstd" != "" ];then
 	echo "这是zstd包！解压并重新打包"
     echo "This is debian package with zstd! Unpack and repack..."
 	mkdir -p "$TMPDIR/unpack-dir"
-	dpkg -X "$DEBPATH" "$TMPDIR/unpack-dir"
-	dpkg -e "$DEBPATH" "$TMPDIR/unpack-dir/DEBIAN"
+	dpkg -X "$DEBPATH" "$TMPDIR/unpack-dir" >> "$TMPDIR/unpack-dir/log"
+	dpkg -e "$DEBPATH" "$TMPDIR/unpack-dir/DEBIAN" >> "$TMPDIR/unpack-dir/log"
 	dpkg-deb -Z xz  -b "$TMPDIR/unpack-dir/" "$OUTPATH"
 	echo 重打包已完成，删除tmp
     echo "Repack finished. Remove tmp dir"
@@ -150,4 +151,3 @@ else
     echo "This is NOT debian package with zstd ! Move the file to output path..."
 	mv "$DEBPATH" "$OUTPATH"
 fi
-
