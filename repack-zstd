@@ -16,6 +16,8 @@ Usage: $0 [-h|--help] [-i|--in] [-o|out] [-t|-tmpdir]
 -i|--in       The input file path
 -o|--out      The ourput file directory, defalut is current dir
 -t|--tmpdir   The unpack directory, defalut is current dir
+
+If no args detected, will read in the order of [input path] [ output dir ] [ unpack dir ].
 --------------------------------------------------------------------
 例子 Examples：
 $0 -i ./spark-store_3.0.3-13_amd64.deb -o ./ -t ./
