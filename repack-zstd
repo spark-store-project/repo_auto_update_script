@@ -3,19 +3,22 @@
 #########################帮助文件#################################
 help() {
     cat <<EOF
-用法：$0 [-h|--help] [-i|--in] [-o|out] [-t|-tmpdir] 
+用法：$0 [-h|--help] [-i|--in] [-o|out] [-t|-tmpdir] [-s|--scan] path
 -h|--help     显示这个帮助
 -i|--in       输入的文件路径
 -o|--out      输出的文件路径，默认为运行目录
 -t|--tmpdir   设置解包路径，默认为运行目录
+-s|--scan     进入扫描模式，扫描这个路径下的所有deb包。在此模式下，输出文件路径将变为输入文件所在目录
 
 如果没有设置参数，将按照 [输入路径] [输出路径] [解包路径] 的顺序读取
 --------------------------------------------------------------------
-Usage: $0 [-h|--help] [-i|--in] [-o|out] [-t|-tmpdir] 
+Usage: $0 [-h|--help] [-i|--in] [-o|out] [-t|-tmpdir] [-s|--scan] path
 -h|--help     Show this text
 -i|--in       The input file path
 -o|--out      The ourput file directory, defalut is current dir
 -t|--tmpdir   The unpack directory, defalut is current dir
+-s|--scan     Enter scan mode.Scan all the package in the given path.
+              If you are under scan mode, output will become the input file directory
 
 If no args detected, will read in the order of [input path] [ output dir ] [ unpack dir ].
 --------------------------------------------------------------------
@@ -48,6 +51,11 @@ parse_args() {
 			TMPDIR="$2"
 			shift
 			;;
+		-s|--scan)
+			isscan="1"
+			SCANDIR="$2"
+			break
+			;;
         *)
             DEBPATH="$1"
 			OUTPATH="$2"
@@ -78,6 +86,24 @@ parse_args "$@"
 
 
 ##########检测参数是否有效
+if [ "$isscan" = "1" ];then
+########如果是scan就跳出
+echo "进入扫描模式"
+if [ "$SCANDIR" = "" ];then
+SCANDIR="."
+fi
+
+files=(`find "$SCANDIR" -name '*.deb'`)
+until [ "${#files[@]}" = "0" ];do
+filepath=${files[0]}
+filedir=`echo $filepath | xargs -I {} dirname {}`
+files=(${files[@]:1})
+$0 $filepath $filedir
+done
+exit
+
+fi
+
 if [ "$1" = "" ];then
 	echo "没有任何输入，退出"
 	echo "可使用$0 -h 来查看帮助"
