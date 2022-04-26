@@ -138,8 +138,8 @@ if [ "$iszstd" != "" ];then
 	echo "这是zstd包！解压并重新打包"
     echo "This is debian package with zstd! Unpack and repack..."
 	mkdir -p "$TMPDIR/unpack-dir"
-	dpkg -X "$DEBPATH" "$TMPDIR/unpack-dir" >> "$TMPDIR/unpack-dir/log"
-	dpkg -e "$DEBPATH" "$TMPDIR/unpack-dir/DEBIAN" >> "$TMPDIR/unpack-dir/log"
+	dpkg -X "$DEBPATH" "$TMPDIR/unpack-dir" 
+	dpkg -e "$DEBPATH" "$TMPDIR/unpack-dir/DEBIAN"
 	dpkg-deb -Z xz  -b "$TMPDIR/unpack-dir/" "$OUTPATH"
 	echo 重打包已完成，删除tmp
     echo "Repack finished. Remove tmp dir"
