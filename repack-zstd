@@ -95,12 +95,12 @@ if [ "$DEBPATH" = "" ];then
 fi
 
 if [ ! -e "$DEBPATH" ];then
-	echo "错误：输入的位置无效"
+	echo "错误：输入的位置 $DEBPATH 无效"
     echo "E: Invalid input file path"
 	exit
 fi
 
-
+echo "正在处理位于$DEBPATH的文件"
 
 if [ "$OUTPATH" = "" ];then
 	echo "没有检测到输出目录，默认使用运行目录"
@@ -151,3 +151,5 @@ else
     echo "This is NOT debian package with zstd ! Move the file to output path..."
 	mv "$DEBPATH" "$OUTPATH"
 fi
+
+echo "---------------------------------------------------------------------------"
