@@ -51,7 +51,7 @@ sed -i 's@\./@@' Packages
 apt-ftparchive release . > Release
 echo "刷新完毕，开始签名"
 rm InRelease
-gpg --clear-sign  -o InRelease Release
+gpg --clear-sign --default-key 9D9AA859F75024B1A1ECE16E0E41D354A29A440C -o InRelease Release
 echo "签名完毕"
 
 echo "仓库状态更新：哈希校验--->刷新商店应用列表"
