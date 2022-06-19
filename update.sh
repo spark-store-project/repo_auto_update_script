@@ -94,7 +94,7 @@ ossutil sync /home/ftp/spark-store/ oss://spark-store/ -uf  --delete --config-fi
 
 
 #同步json png
-bash /root/syn_jsonpic_jsd.sh
+# bash /root/syn_jsonpic_jsd.sh
 
 #rm ../submit/仓库状态：发布中
 #echo ready > ../submit/仓库状态：就绪
