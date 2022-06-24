@@ -1,5 +1,5 @@
 #json同步脚本
-FROM_DIR=/home/ftp/deepin-community-store/
+FROM_DIR=/home/ftp/spark-store/
 TO_DIR=/home/ftp/json/
 
 # 从gitee上拉去已合并的pr
