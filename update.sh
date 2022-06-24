@@ -58,17 +58,7 @@ echo "仓库状态更新：哈希校验--->刷新商店应用列表"
 #rm ../submit/仓库状态：哈希校验
 #echo refreshing > ../submit/仓库状态：刷新商店应用列表
 #刷新json
-echo "插入refresh.flag旗帜，拔除finish-refresh.flag旗帜，持续检测刷新状态"
-rm ${REPOPATH}/finish-refresh.flag
-touch ${REPOPATH}/refresh.flag
-while (("$FRESH=0"))
-do
-if [ -f "${REPOPATH}/finish-refresh.flag" ];then
-FRESH=1
-else
-sleep 5
-fi 
-done
+/root/jsonrsy.sh
 
 echo "检测到finish-refresh.flag旗帜，仓库状态更新：刷新商店应用列表--->发布中"
 #rm ../submit/仓库状态：刷新商店应用列表
