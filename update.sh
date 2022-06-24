@@ -58,7 +58,7 @@ echo "仓库状态更新：哈希校验--->刷新商店应用列表"
 #rm ../submit/仓库状态：哈希校验
 #echo refreshing > ../submit/仓库状态：刷新商店应用列表
 #刷新json
-/root/jsonrsy.sh
+/root/refresh.sh
 
 echo "检测到finish-refresh.flag旗帜，仓库状态更新：刷新商店应用列表--->发布中"
 #rm ../submit/仓库状态：刷新商店应用列表
