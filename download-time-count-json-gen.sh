@@ -1,0 +1,86 @@
+#/bin/bash
+REPOPATH="/home/ftp/spark-store" #设置软件源目录
+cd $REPOPATH #进入根目录
+
+cd store
+
+for i in `ls` #for循环遍历store目录下的文件
+do
+   if [ -d $i ] ; then #如果当前变量的是目录
+        cd $i #进入目录
+		for j in `ls` #for循环遍历目录下的文件
+		do
+		if [ -d $j ] ; then #如果当前变量的是目录
+			cd $j #进入目录
+        		if [ ! -f 'download-times.txt' ];then #如果存在特定文件
+            		echo  0 > download-times.txt
+            		echo "`pwd` 处无download-times.txt文件，已创建"
+			fi
+			cd ..
+		fi
+		done
+        cd ..
+   fi
+
+done
+
+
+
+
+for i in `ls` #for循环遍历store目录下的文件
+do
+
+    if [ -d $i ] ; then #如果当前变量的是目录
+        cd $i #进入目录
+
+rm -f ./temp-list.txt
+
+lines=`find . -name download-times.txt | wc -l  `
+echo "所在分类为 `pwd | xargs basename` ，此分类下的总应用数为：$lines"
+file_list=`find . -name download-times.txt`
+i=1
+
+until [ $i -gt $lines ];do
+file_path=`echo "${file_list}" | sed -n '1p'`
+file_list=`echo "${file_list}" | sed '1d'` 
+echo "$file_path#`cat $file_path`" >> ./temp-list.txt
+
+let i=$i+1
+
+done
+
+sort -n -r -k 2 -t '#' ./temp-list.txt -o ./temp-list.txt
+sed -i "{s/#.*//}" ./temp-list.txt
+
+
+
+lines=`cat ./temp-list.txt | wc -l  `
+i=1
+rm -f applist-download-times.json 
+echo "[" >> applist-download-times.json 
+until [ $i -gt $lines ];do
+file_path=`cat "./temp-list.txt" | sed -n '1p'`
+sed -i '1d' ./temp-list.txt
+file_path=$(echo ${file_path%/*})
+file_path=$(echo "$file_path"/app.json"")
+
+cat $file_path  >> applist-download-times.json 
+echo >> applist-download-times.json  
+echo ",">> applist-download-times.json  #用逗号分隔
+
+let i=$i+1
+
+done
+
+rm -f ./temp-list.txt
+sed -i '$d' applist-download-times.json #删除最后一行的逗号
+echo "]">> applist-download-times.json #写入右半部分
+
+
+
+cd ..
+
+fi
+done
+
+echo "按下载量顺序生成applist-download-times.json过程结束"
