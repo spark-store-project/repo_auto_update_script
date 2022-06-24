@@ -21,7 +21,7 @@ until [ "$i" -gt "$DOWNLOAD_NUMBERS" ];do
 
 curl pop3s://pop.sina.com/1 --user example@example.com:114514 -s > ./tmp.log
 dos2unix ./tmp.log
-if [ "`cat ./tmp.log | grep check="i love amber forever" `" = "" ];then
+if [ "`cat ./tmp.log | grep check="这里可以放自己喜欢的内容" `" = "" ];then
 curl --request DELE pop3s://pop.sina.com/1 --user example@example.com:114514 --list-only
 echo "邮件无验证信息，可能为垃圾邮件，丢弃"
 
