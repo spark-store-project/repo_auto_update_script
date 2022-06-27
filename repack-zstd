@@ -176,7 +176,7 @@ if [ "$iszstd" != "" ];then
 else
 	echo "这不是zstd包！移动到输出位置"
     echo "This is NOT debian package with zstd ! Move the file to output path..."
-	mv "$DEBPATH" "$OUTPATH"
+	mv -n "$DEBPATH" "$OUTPATH"
 fi
 
 echo "---------------------------------------------------------------------------"
