@@ -26,7 +26,7 @@ import tornado.ioloop
 # 参数设置
 ############################
 # deb 仓库本地地址
-packagePath = "/home/gfdgd_xi/Desktop/spark-download"
+packagePath = "/home/ftp/spark-store"
 # 本程序启动后调用的端口号
 post = 8000
 # 启动/关闭防单 IP 高刷功能
