@@ -12,11 +12,11 @@ python3 main.py
 # 如何调用这个接口？
 使用 http 的库使用 post 调用：
 ```commandline
-http://IP:端口号/自定义路径
+http://IP:端口号/
 ```
 或者  
 ```commandline
-https://IP:端口号/自定义路径
+https://IP:端口号/
 ```
 post 内容：  
 ```json
