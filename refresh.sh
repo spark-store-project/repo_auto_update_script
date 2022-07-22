@@ -32,7 +32,7 @@ echo "所有分类遍历完毕，json信息已经整合完成，刷新第二阶�
 
 # 同步json
 echo "开始刷新第三阶段：同步推送"
-bash /root/jsonrsy.sh
+bash /root/repo-scripts/jsonrsy.sh
 #同步 图片
 # 不再用 jsd 不需要同步了
 # bash /root/syn_jsonpic_jsd.sh
