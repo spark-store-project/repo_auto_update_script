@@ -10,22 +10,24 @@ find "${REPOPATH}" -name '*.update' -print0 | xargs -0 file-rename -f -v 's/\.up
 echo ".update已经去除，刷新第一阶段完成"
 #以上来源abcfy2
 echo "开始刷新第二阶段：json合并"
-cd store #进入store目录
-
-for i in `ls` #for循环遍历store目录下的文件
-do
-    if [ -d $i ] ; then #如果当前变量的是目录
-        cd $i #进入目录
-        if [ -f 'applist.json' ];then #如果存在特定文件
-            rm applist.json #删除
-            cat `find . -name 'app.json' -type f`|jq -s . > applist.json
-            #查找所有的json文件
-            echo "分类信息写入完毕"
-        fi
-        cd ..
-    fi
-
-done
+########转为使用download-rank排序
+#cd store #进入store目录
+#
+#for i in `ls` #for循环遍历store目录下的文件
+#do
+#    if [ -d $i ] ; then #如果当前变量的是目录
+#        cd $i #进入目录
+#        if [ -f 'applist.json' ];then #如果存在特定文件
+#            rm applist.json #删除
+#            cat `find . -name 'app.json' -type f`|jq -s . > applist.json
+#            #查找所有的json文件
+#            echo "分类信息写入完毕"
+#        fi
+#        cd ..
+#    fi
+#
+#done
+/root/repo-scripts/download-rank-json-gen.sh
 echo "所有分类遍历完毕，json信息已经整合完成，刷新第二阶段完毕"
 
 # 同步json
