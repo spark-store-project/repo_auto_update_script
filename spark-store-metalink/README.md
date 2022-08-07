@@ -1,0 +1,1 @@
+生成 metalink 的 python 脚本，脚本需求： python3

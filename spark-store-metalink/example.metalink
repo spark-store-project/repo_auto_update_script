@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?> <metalink version="3.0" xmlns="http://www.metalinker.org/">  <files>  <file name="example.ext">  <verification>  <hash type="md5">example-md5-hash</hash>  <hash type="sha1">example-sha1-hash</hash>  <signature type="pgp"/>  </verification>  <resources>  <example_resources>  </resources>  </file>  </files> </metalink>
