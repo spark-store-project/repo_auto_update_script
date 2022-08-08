@@ -8,7 +8,7 @@ torrent_file_path = '/home/ftp/spark-store/store/torrent.json'
 cdn_file_path = '/home/ftp/spark-store/store/server-and-mirror.list'
 output_base_dir = '/home/ftp/spark-store/store/'
 
-example_file_path = '/root/repo-scripts/repo_auto_update_script/spark-store-metalinkexample.metalink'
+example_file_path = '/root/repo-scripts/repo_auto_update_script/spark-store-metalink/example.metalink'
 http_xml_example = ' <url type="http" location="cn" preference="100">example_http</url> '
 bt_xml_example = ' <url type="bittorrent" preference="100">example_bt</url> '
 torrent_url = 'https://d.store.deepinos.org.cn/'
