@@ -3,10 +3,10 @@ import json
 import xml.dom.minidom
 
 
-pacakges_file_path = '/mnt/d/workspace/spark/repo_auto_update_script/spark-store-metalink/Packages'
-torrent_file_path = '/mnt/d/workspace/spark/repo_auto_update_script/spark-store-metalink/torrent.json'
-cdn_file_path = '/mnt/d/workspace/spark/repo_auto_update_script/spark-store-metalink/server-and-mirror.list'
-output_base_dir = '/mnt/d/workspace/spark/repo_auto_update_script/spark-store-metalink/'
+pacakges_file_path = '/home/ftp/spark-store/Packages'
+torrent_file_path = '/home/ftp/spark-store/store/torrent.json'
+cdn_file_path = '/home/ftp/spark-store/store/server-and-mirror.list'
+output_base_dir = '/home/ftp/spark-store/'
 
 example_file_path = '/mnt/d/workspace/spark/repo_auto_update_script/spark-store-metalink/example.metalink'
 http_xml_example = ' <url type="http" location="cn" preference="100">example_http</url> '
