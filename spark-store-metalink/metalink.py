@@ -8,7 +8,7 @@ torrent_file_path = '/home/ftp/spark-store/store/torrent.json'
 cdn_file_path = '/home/ftp/spark-store/store/server-and-mirror.list'
 output_base_dir = '/home/ftp/spark-store/'
 
-example_file_path = '/mnt/d/workspace/spark/repo_auto_update_script/spark-store-metalink/example.metalink'
+example_file_path = '/root/repo-scripts/repo_auto_update_script/spark-store-metalink/example.metalink'
 http_xml_example = ' <url type="http" location="cn" preference="100">example_http</url> '
 bt_xml_example = ' <url type="bittorrent" preference="100">example_bt</url> '
 torrent_url = 'https://d.store.deepinos.org.cn/'
@@ -17,13 +17,12 @@ import glob
 try:
     import torrent_parser as tp
 except:
-    os.system('python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple torrent_parser')
+    os.system('python3 -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple torrent_parser')
     import torrent_parser as tp
     
 torrents_files = glob.glob(os.path.join(output_base_dir, '*/*/*/*.torrent'))
 print(torrents_files)
-http_cdn = ['https://d1.store.deepinos.org.cn/', 'https://d2.store.deepinos.org.cn/',
-            'https://d3.store.deepinos.org.cn/', 'https://d14.store.deepinos.org.cn/', 'https://d5.store.deepinos.org.cn/']
+http_cdn = ['https://d4.store.deepinos.org.cn/', 'https://d5.store.deepinos.org.cn/']
 
 for bt in torrents_files:
     try:
@@ -40,6 +39,7 @@ for bt in torrents_files:
             for i in http_cdn:
                 url_list.append(bt.replace(output_base_dir,i).replace('.torrent',''))
             message[b'url-list'] = url_list
+            # print(message)
             tp.create_torrent_file(bt, message)
     except:
         print('Fail in '+ bt)
