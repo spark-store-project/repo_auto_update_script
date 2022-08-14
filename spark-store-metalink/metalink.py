@@ -13,6 +13,39 @@ http_xml_example = ' <url type="http" location="cn" preference="100">example_htt
 bt_xml_example = ' <url type="bittorrent" preference="100">example_bt</url> '
 torrent_url = 'https://d.store.deepinos.org.cn/'
 
+import glob
+try:
+    import torrent_parser as tp
+except:
+    os.system('python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple torrent_parser')
+    import torrent_parser as tp
+    
+torrents_files = glob.glob(os.path.join(output_base_dir, '*/*/*/*.torrent'))
+print(torrents_files)
+http_cdn = ['https://d1.store.deepinos.org.cn/', 'https://d2.store.deepinos.org.cn/',
+            'https://d3.store.deepinos.org.cn/', 'https://d14.store.deepinos.org.cn/', 'https://d5.store.deepinos.org.cn/']
+
+for bt in torrents_files:
+    try:
+        edit_http_url = False
+        message = tp.parse_torrent_file(bt)
+        try:
+            http_url = message[b'url-list']
+            if http_url == None or len(http_url) == 0:
+                edit_http_url = True
+        except:
+            edit_http_url = True
+        url_list = []
+        if edit_http_url == True:
+            for i in http_cdn:
+                url_list.append(bt.replace(output_base_dir,i).replace('.torrent',''))
+            message[b'url-list'] = url_list
+            tp.create_torrent_file(bt, message)
+    except:
+        print('Fail in '+ bt)
+            
+
+
 with open(example_file_path, 'r') as example_file:
     example_data = example_file.readline()
 
