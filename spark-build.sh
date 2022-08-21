@@ -11,6 +11,9 @@ apt install git devscripts equivs curl -y >/dev/null 2>&1
 git clone https://gitee.com/deepin-community-store/spark-store 
 cd spark-store
 
+apt install libdtkcore-dev libdtkgui-dev libdtkwidget-dev -y
+
+
 mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y" 
 dpkg-buildpackage -b -us -uc
 
