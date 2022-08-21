@@ -23,7 +23,7 @@ cd ..
 apt install ./*.deb -y
 cd .. 
 
-cd dtkwidget/dtkwidget-5.4.15 && mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes --no-install-recomme
+cd dtkwidget/dtkwidget-5.4.20 && mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes --no-install-recomme
 ds -y" && dpkg-buildpackage -b -us -uc
 cd ..
 apt install ./*.deb -y
