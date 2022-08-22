@@ -15,6 +15,7 @@ cd build-spark
 git clone https://gitee.com/deepin-community-store/spark-store
 cd spark-store
 mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" 
+sed -i 's/JOBS/1/g' debian/rules
 dpkg-buildpackage -b -us -uc
 cd ..
 ls -all
