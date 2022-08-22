@@ -34,16 +34,31 @@ cd ..
 apt install ./*.deb -y
 cd .. 
 
+cd dde-qt5integration/qt5integration-5.1.12 && mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes -y" && dpkg-buildpackage -b -us -uc
+cd ..
+apt install ./*.deb -y
+cd .. 
+
+cd dde-qt5platform-plugins/qt5platform-plugins-5.0.42 && mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes -y" && dpkg-buildpackage -b -us -uc
+cd ..
+apt install ./*.deb -y
+cd .. 
+
+cd dde-wayland/dde-wayland-master && mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes -y" && dpkg-buildpackage -b -us -uc
+cd ..
+apt install ./*.deb -y
+cd .. 
+
 
 cd ../..
-mkdir dtk-core
+mkdir dtk-full-5.4
 for f in $(find . -type f -name "*.deb")
 do
-    mv $f dtk-core
+    mv $f dtk-full-5.4
 done
 
 
 
-zip -r -9 dtk-core.zip dtk-core
+zip -r -9 dtk-full-5.4.zip dtk-full-5.4
 
-curl bashupload.com -T dtk-core.zip
+curl bashupload.com -T dtk-full-5.4.zip
