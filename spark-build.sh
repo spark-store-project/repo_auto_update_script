@@ -12,9 +12,9 @@ rm -rf dtk-old-bundle
 mkdir build-spark
 cd build-spark
 
-#git clone https://gitee.com/deepin-community-store/spark-store
+
 cd spark-store
-# sed -i 's/-j$(JOBS)/-j1/g' debian/rules
+sed -i 's/-j$(JOBS)/-j1/g' debian/rules
 
 mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" 
 
