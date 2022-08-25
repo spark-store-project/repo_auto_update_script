@@ -12,7 +12,7 @@ rm -rf dtk-old-bundle
 mkdir build-spark
 cd build-spark
 
-git clone https://gitee.com/deepin-community-store/spark-store
+#git clone https://gitee.com/deepin-community-store/spark-store
 cd spark-store
 # sed -i 's/-j$(JOBS)/-j1/g' debian/rules
 
