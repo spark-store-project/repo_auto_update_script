@@ -23,7 +23,7 @@ i=1
 until [ "$i" -gt "$DOWNLOAD_NUMBERS" ];do
 
 curl pop3s://pop.163.com/1 --user $EMAIL_ADDRESS_AND_PASSWD -s > ./tmp.log
-dos2unix ./tmp.log
+dos2unix ./tmp.log >/dev/null 2>&1
 if [ "`cat ./tmp.log | grep check="i love amber forever" `" = "" ];then
 curl --request DELE pop3s://pop.163.com/1 --user $EMAIL_ADDRESS_AND_PASSWD --list-only
 echo "邮件无验证信息，可能为垃圾邮件，丢弃"
@@ -38,7 +38,7 @@ echo "邮件无验证信息，可能为垃圾邮件，丢弃"
                     ALREADY_DOWNLOADED_NUM=`cat $REPOPATH/$APP_LOCATION/download-times.txt`
                     let ALREADY_DOWNLOADED_NUM=$ALREADY_DOWNLOADED_NUM+1
                     echo ${ALREADY_DOWNLOADED_NUM} > $REPOPATH/$APP_LOCATION/download-times.txt
-
+		    echo "$REPOPATH/$APP_LOCATION 的下载量现在为 ${ALREADY_DOWNLOADED_NUM}"
                 ;;
                 *)
                 echo "未定义的行为，抛弃"
