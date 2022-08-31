@@ -7,12 +7,23 @@ cd store
 for i in `ls` #for循环遍历store目录下的文件
 do
    if [ -d $i ] ; then #如果当前变量的是目录
+		if [ "$i" = "depends"] || [ "$i" = "ossutil_output"];then	# 判断是否是不参与排名的
+			echo "$i 目录不参与下载量排名，被排除在外"
+			continue
+		fi
+		
         cd $i #进入目录
 		for j in `ls` #for循环遍历目录下的文件
 		do
 		if [ -d $j ] ; then #如果当前变量的是目录
 			cd $j #进入目录
-        		if [ ! -f 'download-times.txt' ];then #如果存在特定文件
+			if [ ! -f 'app.json' ];then 
+			echo "警告：`pwd`处的应用无app.json！跳过..."
+			continue
+			fi
+
+			
+        		if [ ! -f 'download-times.txt' ];then #如果不存在下载量文件，则退出
             		echo  0 > download-times.txt
             		echo "`pwd` 处无download-times.txt文件，已创建"
 			fi
@@ -20,6 +31,7 @@ do
 		fi
 		done
         cd ..
+		
    fi
 
 done
@@ -56,7 +68,7 @@ sed -i "{s/#.*//}" ./temp-list.txt
 
 lines=`cat ./temp-list.txt | wc -l  `
 i=1
-rm -f applist-download-rank.json 
+
 echo "[" >> applist-download-rank.json 
 until [ $i -gt $lines ];do
 file_path=`cat "./temp-list.txt" | sed -n '1p'`
