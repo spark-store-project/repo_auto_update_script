@@ -4,10 +4,11 @@ cd $REPOPATH #进入根目录
 
 cd store
 
+echo "--------排查download-times.txt是否存在阶段开始"
 for i in `ls` #for循环遍历store目录下的文件
 do
    if [ -d $i ] ; then #如果当前变量的是目录
-		if [ "$i" = "depends"] || [ "$i" = "ossutil_output"];then	# 判断是否是不参与排名的
+		if [ "$i" = "depends" ] || [ "$i" = "ossutil_output" ] ;then	# 判断是否是不参与排名的
 			echo "$i 目录不参与下载量排名，被排除在外"
 			continue
 		fi
@@ -36,14 +37,19 @@ do
 
 done
 
-
-
+ echo "--------排查download-times.txt是否存在阶段结束"
+echo "--------开始生成排名"
 
 for i in `ls` #for循环遍历store目录下的文件
 do
-
     if [ -d $i ] ; then #如果当前变量的是目录
+	         if [ "$i" = "depends" ] || [ "$i" = "ossutil_output" ] ;then    # 判断是否是不参与排名的
+                         echo "$i 目录不参与下载量排名，被排除在外"
+                         continue
+                 fi
+
         cd $i #进入目录
+
 
 rm -f ./temp-list.txt
 
@@ -95,4 +101,4 @@ cd ..
 fi
 done
 
-echo "按下载量顺序生成applist-download-rank.json过程结束"
+echo "按下载量顺序生成applist.json过程结束"
