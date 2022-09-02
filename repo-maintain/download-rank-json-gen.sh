@@ -75,7 +75,7 @@ sed -i "{s/#.*//}" ./temp-list.txt
 lines=`cat ./temp-list.txt | wc -l  `
 i=1
 
-echo "[" >> applist.json 
+echo "[" > applist.json 
 until [ $i -gt $lines ];do
 file_path=`cat "./temp-list.txt" | sed -n '1p'`
 sed -i '1d' ./temp-list.txt
