@@ -75,24 +75,24 @@ sed -i "{s/#.*//}" ./temp-list.txt
 lines=`cat ./temp-list.txt | wc -l  `
 i=1
 
-echo "[" >> applist-download-rank.json 
+echo "[" >> applist.json 
 until [ $i -gt $lines ];do
 file_path=`cat "./temp-list.txt" | sed -n '1p'`
 sed -i '1d' ./temp-list.txt
 file_path=$(echo ${file_path%/*})
 file_path=$(echo "$file_path"/app.json"")
 
-cat $file_path  >> applist-download-rank.json 
-echo >> applist-download-rank.json  
-echo ",">> applist-download-rank.json  #用逗号分隔
+cat $file_path  >> applist.json 
+echo >> applist.json  
+echo ",">> applist.json  #用逗号分隔
 
 let i=$i+1
 
 done
 
 rm -f ./temp-list.txt
-sed -i '$d' applist-download-rank.json #删除最后一行的逗号
-echo "]">> applist-download-rank.json #写入右半部分
+sed -i '$d' applist.json #删除最后一行的逗号
+echo "]">> applist.json #写入右半部分
 
 
 
