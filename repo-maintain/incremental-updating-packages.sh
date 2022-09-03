@@ -10,11 +10,11 @@ mkdir -p $DATA_DIR
 cd $DATA_DIR
 for DEB_PACKAGE_INFO_PATH in `find . -name *.deb.package`;do
 
-DEB_PATH=`echo ".${DEB_PACKAGE_INFO_PATH%%.package}"`
+DEB_PATH=`echo ".${DEB_PACKAGE_INFO_PATH%%.package}"` 
 if [ -e $DEB_PATH ];then
 	if [ "$DEB_PACKAGE_INFO_PATH"  -ot "$DEB_PATH" ] ;then
 		###时间戳校验
-		echo "$REPO_DIR/$DEB_PATH在生成package文件后发生了改变，将重新生成"
+		echo "$DEB_PATH在生成package文件后发生了改变，将重新生成"
 		rm $DEB_PACKAGE_INFO_PATH
 	fi
 
