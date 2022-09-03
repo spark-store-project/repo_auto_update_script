@@ -1,6 +1,6 @@
 #!/bin/bash
 ###### 这里要写绝对路径
-REPO_DIR="/home/shenmo/Desktop/json"
+REPO_DIR="/home/ftp/spark-store/"
 DATA_DIR="$REPO_DIR/package-data"
 
 ######阶段1：检查data目录下的.deb.package文件，去仓库验证是否有对应的.deb
