@@ -20,7 +20,6 @@ do
 			cd $j #进入目录
 			if [ ! -f 'app.json' ];then 
 			echo "警告：`pwd`处的应用无app.json！跳过..."
-			continue
 			fi
 
 			
