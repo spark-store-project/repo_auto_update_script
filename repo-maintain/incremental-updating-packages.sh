@@ -8,7 +8,8 @@ LOCK_DIR="$REPO_DIR/package-lock"
 ######如果有，则对比时间戳，若仓库的新于.deb.package，则更新，否则continue
 ######如果没有，则删除此文件
 mkdir -p $DATA_DIR
-mkdir -p $LOCK_DIR
+rm -rf $LOCK_DIR
+
 cd $DATA_DIR
 for DEB_PACKAGE_INFO_PATH in `find . -name '*.deb.package'`;do
 
@@ -42,15 +43,20 @@ else
 mkdir -p $DATA_DIR/`dirname $DEB_PATH`
 mkdir -p $LOCK_DIR/`dirname $DEB_PATH`
 touch $LOCK_DIR/$DEB_PATH.lock
+until [ "`find $LOCK_DIR -name '*.deb.lock' | wc -l `" -lt "15" ];do ###最多同时15进程
+sleep 1
+done
+
+
 apt-ftparchive packages $DEB_PATH > $DATA_DIR/$DEB_PATH.package && echo "新包 $DEB_PATH 已生成package文件" && rm $LOCK_DIR/$DEB_PATH.lock &
 fi
 done
 
 #####删除data目录下所有空文件夹
-
 until [ -z "`find $LOCK_DIR -name '*.deb.lock'`"  ];do
 sleep 1
 done
+
 
 rm -r $LOCK_DIR
 
