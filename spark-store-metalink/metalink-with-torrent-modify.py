@@ -99,7 +99,7 @@ for i in range(len(pacakges_file_data)):
         xml_pretty_str = xml_data.toprettyxml()
         # print(xml_pretty_str)
         if not os.path.exists(i_dir):
-            os.mkdir(i_dir)
-        
-        with open(i_meta_filename,'w') as f:
-            f.write(xml_pretty_str)
+            print('Dir have been deleted, so we pass it:' + str(i_dir))
+        else:
+            with open(i_meta_filename,'w') as f:
+                f.write(xml_pretty_str)
