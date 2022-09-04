@@ -49,7 +49,7 @@ done
 
 #####删除data目录下所有空文件夹
 
-until [ -z `find $LOCK_DIR -name '*.deb.lock'`  ];do
+until [ -z "`find $LOCK_DIR -name '*.deb.lock'`"  ];do
 sleep 1
 done
 
