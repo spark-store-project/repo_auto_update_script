@@ -8,7 +8,7 @@ DATA_DIR="$REPO_DIR/package-data"
 ######如果没有，则删除此文件
 mkdir -p $DATA_DIR
 cd $DATA_DIR
-for DEB_PACKAGE_INFO_PATH in `find . -name *.deb.package`;do
+for DEB_PACKAGE_INFO_PATH in `find . -name '*.deb.package'`;do
 
 DEB_PATH=`echo ".${DEB_PACKAGE_INFO_PATH%%.package}"` 
 if [ -e $DEB_PATH ];then
@@ -31,7 +31,7 @@ done
 ##### 阶段2：反查deb，如果有.deb.package，则跳过，否则生成
 cd $REPO_DIR
 
-for DEB_PATH in `find . -name *.deb`;do
+for DEB_PATH in `find . -name '*.deb'`;do
 
 if [ -e $DATA_DIR/$DEB_PATH.package ];then
 continue
@@ -50,6 +50,6 @@ find $DATA_DIR -type d -empty -exec rm -rf {} \;
 ##### 合成Packages
 rm $REPO_DIR/Packages
 cd $DATA_DIR
-for DEB_PACKAGE_INFO_PATH in `find . -name *.deb.package`;do
+for DEB_PACKAGE_INFO_PATH in `find . -name '*.deb.package'`;do
 cat $DEB_PACKAGE_INFO_PATH >> $REPO_DIR/Packages
 done
