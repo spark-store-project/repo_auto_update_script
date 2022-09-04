@@ -42,8 +42,7 @@ else
 mkdir -p $DATA_DIR/`dirname $DEB_PATH`
 mkdir -p $LOCK_DIR/`dirname $DEB_PATH`
 touch $LOCK_DIR/$DEB_PATH.lock
-apt-ftparchive packages $DEB_PATH > $DATA_DIR/$DEB_PATH.package && echo "新包 $DEB_PATH 已生成package文件" && rm $LOCK_DIR
-$DEB_PATH.lock &
+apt-ftparchive packages $DEB_PATH > $DATA_DIR/$DEB_PATH.package && echo "新包 $DEB_PATH 已生成package文件" && rm $LOCK_DIR/$DEB_PATH.lock &
 fi
 done
 
