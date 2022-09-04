@@ -43,7 +43,7 @@ else
 mkdir -p $DATA_DIR/`dirname $DEB_PATH`
 mkdir -p $LOCK_DIR/`dirname $DEB_PATH`
 touch $LOCK_DIR/$DEB_PATH.lock
-until [ "`find $LOCK_DIR -name '*.deb.lock' | wc -l `" -lt "15" ];do ###最多同时15进程
+until [ "`find $LOCK_DIR -name '*.deb.lock' | wc -l `" -lt "10" ];do ###最多同时10进程
 sleep 1
 done
 
