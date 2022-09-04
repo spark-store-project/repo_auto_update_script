@@ -27,7 +27,7 @@ echo "开始刷新第二阶段：json合并"
 #    fi
 #
 #done
-/root/repo-scripts/download-rank-json-gen.sh
+/root/repo-scripts/repo_auto_update_script/repo-maintain/download-rank-json-gen.sh
 echo "所有分类遍历完毕，json信息已经整合完成，刷新第二阶段完毕"
 
 # 同步json
