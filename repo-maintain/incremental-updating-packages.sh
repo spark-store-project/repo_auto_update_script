@@ -2,11 +2,13 @@
 ###### 这里要写绝对路径
 REPO_DIR="/home/ftp/spark-store/"
 DATA_DIR="$REPO_DIR/package-data"
+LOCK_DIR="$REPO_DIR/package-lock"
 
 ######阶段1：检查data目录下的.deb.package文件，去仓库验证是否有对应的.deb
 ######如果有，则对比时间戳，若仓库的新于.deb.package，则更新，否则continue
 ######如果没有，则删除此文件
 mkdir -p $DATA_DIR
+mkdir -p $LOCK_DIR
 cd $DATA_DIR
 for DEB_PACKAGE_INFO_PATH in `find . -name '*.deb.package'`;do
 
@@ -38,12 +40,20 @@ continue
 
 else
 mkdir -p $DATA_DIR/`dirname $DEB_PATH`
-apt-ftparchive packages $DEB_PATH > $DATA_DIR/$DEB_PATH.package
-echo "新包 $DEB_PATH 已生成package文件"
+mkdir -p $LOCK_DIR/`dirname $DEB_PATH`
+touch $LOCK_DIR/$DEB_PATH.lock
+apt-ftparchive packages $DEB_PATH > $DATA_DIR/$DEB_PATH.package && echo "新包 $DEB_PATH 已生成package文件" && rm $LOCK_DIR
+$DEB_PATH.lock &
 fi
 done
 
 #####删除data目录下所有空文件夹
+
+until [ -z `find $LOCK_DIR -name '*.deb.lock'`  ];do
+sleep 1
+done
+
+rm -r $LOCK_DIR
 
 find $DATA_DIR -type d -empty -exec rm -rf {} \;
 
