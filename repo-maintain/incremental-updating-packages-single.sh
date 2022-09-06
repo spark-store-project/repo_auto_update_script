@@ -38,6 +38,26 @@ continue
 
 else
 mkdir -p $DATA_DIR/`dirname $DEB_PATH`
+
+iszstd=`file "$DEB_PATH" | grep tar.zs`
+
+##################################################
+#判断是否为zstd并执行相关操作
+
+if [ "$iszstd" != "" ];then
+	echo "这是zstd包！解压并重新打包"
+    	echo "This is debian package with zstd! Unpack and repack..."
+	mkdir -p "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
+	dpkg -X "$DEB_PATH" "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir" 
+	dpkg -e "$DEB_PATH" "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir/DEBIAN"
+	dpkg-deb -Z xz  -b "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir/" "$REPO_DIR/`dirname $DEB_PATH`"
+	echo 重打包已完成，删除tmp
+    echo "Repack finished. Remove tmp dir"
+	rm -rf "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
+	
+else
+	echo "$DEB_PATH不是zstd包，继续生成package"
+fi
 apt-ftparchive packages $DEB_PATH > $DATA_DIR/$DEB_PATH.package
 echo "新包 $DEB_PATH 已生成package文件"
 fi
