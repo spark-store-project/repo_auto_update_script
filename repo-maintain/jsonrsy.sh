@@ -27,7 +27,7 @@ cp $i $TO_DIR$di/applist.json -u  # -u 表示只有当源文件比目标文件�
 done
 
 echo "从仓库更新完毕"
-
+cd $TO_DIR
 
 #合并仓库生成的新json和来自gitee仓库的pr推送到gitee
 git add .
