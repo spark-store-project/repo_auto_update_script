@@ -8,7 +8,7 @@ cd $TO_DIR
 git pull origin
 echo " 从gitlink拉取完毕"
 
-# 从仓库更新png, 从中文json生成英文
+# 从仓库更新png
 cd $FROM_DIR
 find store -type d -exec mkdir -p $TO_DIR\{\} \;
 
