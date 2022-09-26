@@ -103,7 +103,7 @@ done
 #####APPLIST_ALL
 cd $REPOPATH/store
 rm -f applist-all.json
-for APP_LIST in `find . -name applist.json`;do
+for APP_LIST in `find . -name app.json`;do
 cat $APP_LIST >> applist-all.json
 echo >> applist-all.json
 echo ",">> applist-all.json  #用逗号分隔
