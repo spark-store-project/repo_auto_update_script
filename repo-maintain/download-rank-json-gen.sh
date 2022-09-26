@@ -100,4 +100,17 @@ cd ..
 fi
 done
 
+#####APPLIST_ALL
+cd $REPOPATH/store
+rm -f applist-all.json
+for APP_LIST in `find . -name applist.json`;do
+cat $APP_LIST >> applist-all.json
+echo >> applist-all.json
+echo ",">> applist-all.json  #用逗号分隔
+done
+
+sed -i '$d' applist-all.json #删除最后一行的逗号
+echo "]">> applist-all.json #写入右半部分
+
+
 echo "按下载量顺序生成applist.json过程结束"
