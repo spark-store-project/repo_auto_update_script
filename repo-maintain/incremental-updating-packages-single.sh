@@ -55,8 +55,7 @@ if [ "$iszstd" != "" ];then
     echo "Repack finished. Remove tmp dir"
 	rm -rf "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
 	
-else
-	echo "$DEB_PATH不是zstd包，继续生成package"
+	
 fi
 apt-ftparchive packages $DEB_PATH > $DATA_DIR/$DEB_PATH.package
 echo "新包 $DEB_PATH 已生成package文件"
