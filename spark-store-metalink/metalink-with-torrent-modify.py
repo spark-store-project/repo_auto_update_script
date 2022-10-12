@@ -93,7 +93,7 @@ for i in range(len(pacakges_file_data)):
 
         xml_data = example_data.replace('example.ext', i_filename[i_filename.rindex('/')+1:]).replace(
             'example-md5-hash', i_md5).replace('example-sha1-hash', 
-                i_sha1).replace('<example_resources>', resource_data)
+                i_sha1).replace('<example_resources>', resource_data.replace("+","%2B")) # 对+进行转译，避免oss出错
 
         xml_data = xml.dom.minidom.parseString(xml_data)
         xml_pretty_str = xml_data.toprettyxml()
