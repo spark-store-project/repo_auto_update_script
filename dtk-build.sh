@@ -49,8 +49,7 @@ cd ..
 apt install ./*.deb -y
 cd .. 
 
-exit
-# 这里之后是ci用，个人不需要了
+
 
 cd ../..
 mkdir dtk-full-5.4
@@ -62,5 +61,8 @@ done
 
 
 zip -r -9 dtk-full-5.4.zip dtk-full-5.4
+
+exit
+# 这里之后是ci用，个人不需要了
 
 curl bashupload.com -T dtk-full-5.4.zip
