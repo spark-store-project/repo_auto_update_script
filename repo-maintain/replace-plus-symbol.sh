@@ -11,7 +11,8 @@ mv -v "${DEB_WITH_PLUS_SYMBOL}" "`dirname ${DEB_WITH_PLUS_SYMBOL}`/${DEB_WITH_PL
 fi
 
 if [ -e  "${DEB_WITH_PLUS_SYMBOL}.torrent" ] && [ ! -e "`dirname ${DEB_WITH_PLUS_SYMBOL}`/${DEB_WITH_PLUS_SYMBOL_NAME_AFTER_CHANGE}.torrent" ];then
-mv -v "${DEB_WITH_PLUS_SYMBOL}.torrent" "`dirname ${DEB_WITH_PLUS_SYMBOL}`/${DEB_WITH_PLUS_SYMBOL_NAME_AFTER_CHANGE}.torrent"
+#mv -v "${DEB_WITH_PLUS_SYMBOL}.torrent" "`dirname ${DEB_WITH_PLUS_SYMBOL}`/${DEB_WITH_PLUS_SYMBOL_NAME_AFTER_CHANGE}.torrent"
+rm "${DEB_WITH_PLUS_SYMBOL}.torrent"
 fi
 
 if [ -e  "${DEB_WITH_PLUS_SYMBOL}.metalink" ] && [ ! -e "`dirname ${DEB_WITH_PLUS_SYMBOL}`/${DEB_WITH_PLUS_SYMBOL_NAME_AFTER_CHANGE}.metalink" ];then
