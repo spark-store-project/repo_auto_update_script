@@ -31,7 +31,7 @@ cd $TO_DIR
 
 #合并仓库生成的新json和来自gitee仓库的pr推送到gitee
 git add .
-git commit -m "auto push"
+git commit -m "Update Appinfo From Spark Repo..."
 git push origin
 
 # 同步到下游
