@@ -8,7 +8,7 @@ echo "--------排查download-times.txt是否存在阶段开始"
 for i in `ls` #for循环遍历store目录下的文件
 do
    if [ -d $i ] ; then #如果当前变量的是目录
-		if [ "$i" = "depends" ] || [ "$i" = "ossutil_output" ] || ["$1" = "home" ];then	# 判断是否是不参与排名的
+		if [ "$i" = "depends" ] || [ "$i" = "ossutil_output" ] || [ "$1" = "home" ];then	# 判断是否是不参与排名的
 			echo "$i 目录不参与下载量排名，被排除在外"
 			continue
 		fi
