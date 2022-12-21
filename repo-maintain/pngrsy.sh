@@ -7,9 +7,11 @@ echo "图片同步"
 cd $TO_DIR
 git pull origin
 echo " 从gitlink拉取完毕"
+mkdir -p store/home/links
 
 # 从仓库更新png
 cd $FROM_DIR
+cp store/home/links/*.png $TO_DIR/store/home/links/ -u
 find store -type d -exec mkdir -p $TO_DIR\{\} \;
 
 for i in `find store -iname 'icon.png' -type f`
