@@ -25,6 +25,8 @@ cd $TO_DIR
 
 #合并仓库生成的新json和来自gitee仓库的pr推送到gitee
 git add .
+git config user.name spark-bot
+git config user.email jifengshenmo@outlook.com
 git commit -m "auto push"
 git push origin
 
