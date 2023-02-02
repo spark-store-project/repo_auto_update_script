@@ -39,7 +39,7 @@ for i in range(len(pacakges_file_data)):
         i_filename = pacakges_file_data[i].replace(
             'Filename: ', '').replace('\n', '')
         i_meta_filename = os.path.join(output_base_dir,i_filename + '.metalink')
-        i_torrent = i_filename + '.torrent'
+        i_torrent = os.path.join(output_base_dir,i_filename + '.torrent')
         i_filesize = pacakges_file_data[i +
                                         1].replace('Size: ', '').replace('\n', '')
         i_md5 = pacakges_file_data[i +
