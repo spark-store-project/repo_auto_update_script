@@ -3,7 +3,7 @@ import json
 import xml.dom.minidom
 
 
-pacakges_file_path = '/home/ftp/spark-store/Packages'
+pacakges_file_path = '/home/ftp/spark-store/store/Packages'
 torrent_file_path = '/home/ftp/spark-store/store/torrent.json'
 cdn_file_path = '/home/ftp/spark-store/store/server-and-mirror.list'
 output_base_dir = '/home/ftp/spark-store/'
