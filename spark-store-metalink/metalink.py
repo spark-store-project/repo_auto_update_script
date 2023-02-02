@@ -27,7 +27,7 @@ with open(torrent_file_path, 'r') as torrent_file:
     torrent_data = json.load(torrent_file)
     for i in range(len(torrent_data)):
         torrent_data[i] = torrent_data[i].replace(
-            'http://d.store.deepinos.org.cn/', '')
+            'http://d.store.deepinos.org.cn/store/', '')
 
 with open(pacakges_file_path, 'r') as pacakges_file:
     pacakges_file_data = pacakges_file.readlines()
