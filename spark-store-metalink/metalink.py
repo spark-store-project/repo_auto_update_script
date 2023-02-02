@@ -6,7 +6,7 @@ import xml.dom.minidom
 pacakges_file_path = '/home/ftp/spark-store/store/Packages'
 torrent_file_path = '/home/ftp/spark-store/store/torrent.json'
 cdn_file_path = '/home/ftp/spark-store/store/server-and-mirror.list'
-output_base_dir = '/home/ftp/spark-store/'
+output_base_dir = '/home/ftp/spark-store/store'
 
 example_file_path = '/root/repo-scripts/repo_auto_update_script/spark-store-metalink/example.metalink'
 http_xml_example = ' <url type="http" location="cn" preference="100">example_http</url> '
@@ -50,7 +50,7 @@ for i in range(len(pacakges_file_data)):
         http_xml = ''
         for i_cdn in cdn_urls:
             http_xml += http_xml_example.replace(
-                'example_http', 'https://'+i_cdn+'/' + i_filename)
+                'example_http', 'https://'+i_cdn+'/store/' + i_filename)
         if i_torrent in torrent_data:
             bt_xml = bt_xml_example.replace(
                 'example_bt', torrent_url+i_torrent)
