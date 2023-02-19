@@ -7,11 +7,15 @@ pacakges_file_path = '/home/ftp/spark-store/store/Packages'
 torrent_file_path = '/home/ftp/spark-store/store/torrent.json'
 cdn_file_path = '/home/ftp/spark-store/store/server-and-mirror.list'
 output_base_dir = '/home/ftp/spark-store/store/'
+torrent_base_dir = '/home/ftp/spark-store/'
 
 example_file_path = '/root/repo-scripts/repo_auto_update_script/spark-store-metalink/example.metalink'
 http_xml_example = ' <url type="http" location="cn" preference="100">example_http</url> '
 bt_xml_example = ' <url type="bittorrent" preference="100">example_bt</url> '
 torrent_url = 'https://d.store.deepinos.org.cn/'
+store_path = "store/"
+torrent_url += store_path
+
 
 import glob
 try:
@@ -20,8 +24,8 @@ except:
     os.system('python3 -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple torrent_parser')
     import torrent_parser as tp
     
-torrents_files = glob.glob(os.path.join(output_base_dir, '*/*/*/*.torrent'))
-print(torrents_files)
+torrents_files = glob.glob(os.path.join(output_base_dir, '*/*/*.torrent'))
+# print(torrents_files)
 http_cdn = ['https://d4.store.deepinos.org.cn/', 'https://d5.store.deepinos.org.cn/']
 
 for bt in torrents_files:
@@ -37,7 +41,8 @@ for bt in torrents_files:
         url_list = []
         if edit_http_url == True:
             for i in http_cdn:
-                url_list.append(bt.replace(output_base_dir,i).replace('.torrent',''))
+                # print(bt.replace(torrent_base_dir,i).replace('.torrent',''))
+                url_list.append(bt.replace(torrent_base_dir,i).replace('.torrent',''))
             message[b'url-list'] = url_list
             # print(message)
             tp.create_torrent_file(bt, message)
@@ -53,14 +58,16 @@ with open(cdn_file_path, 'r') as cdn_file:
     cdn_urls = []
     cdn_file_data = cdn_file.readlines()
     for i in range(5, len(cdn_file_data)):
-        cdn_urls.append(cdn_file_data[i].replace('\n', ''))
+        if(len(cdn_file_data[i].replace('\n', ''))>0):
+            cdn_urls.append(cdn_file_data[i].replace('\n', ''))
 
 
 with open(torrent_file_path, 'r') as torrent_file:
     torrent_data = json.load(torrent_file)
     for i in range(len(torrent_data)):
         torrent_data[i] = torrent_data[i].replace(
-            'http://d.store.deepinos.org.cn/', '')
+            'http://d.store.deepinos.org.cn/store/', '')
+        # print(torrent_data[i])
 
 with open(pacakges_file_path, 'r') as pacakges_file:
     pacakges_file_data = pacakges_file.readlines()
@@ -68,6 +75,7 @@ with open(pacakges_file_path, 'r') as pacakges_file:
 for i in range(len(pacakges_file_data)):
 
     if pacakges_file_data[i].startswith('Filename: '):
+        # print(pacakges_file_data[i])
         i_torrent_exits = False
         i_filename = pacakges_file_data[i].replace(
             'Filename: ', '').replace('\n', '')
@@ -83,7 +91,8 @@ for i in range(len(pacakges_file_data)):
         http_xml = ''
         for i_cdn in cdn_urls:
             http_xml += http_xml_example.replace(
-                'example_http', 'https://'+i_cdn+'/' + i_filename)
+                'example_http', 'https://' + i_cdn + '/' + store_path + i_filename)
+        # print(i_torrent)
         if i_torrent in torrent_data:
             bt_xml = bt_xml_example.replace(
                 'example_bt', torrent_url+i_torrent)
@@ -103,3 +112,6 @@ for i in range(len(pacakges_file_data)):
         else:
             with open(i_meta_filename,'w') as f:
                 f.write(xml_pretty_str)
+
+
+

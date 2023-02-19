@@ -19,8 +19,10 @@ with open(example_file_path, 'r') as example_file:
 with open(cdn_file_path, 'r') as cdn_file:
     cdn_urls = []
     cdn_file_data = cdn_file.readlines()
+
     for i in range(5, len(cdn_file_data)):
-        cdn_urls.append(cdn_file_data[i].replace('\n', ''))
+        if(len(cdn_file_data[i].replace('\n', ''))>0):
+            cdn_urls.append(cdn_file_data[i].replace('\n', ''))
 
 
 with open(torrent_file_path, 'r') as torrent_file:
