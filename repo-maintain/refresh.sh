@@ -1,4 +1,4 @@
-REPOPATH="/home/ftp/spark-store" #设置软件源目录
+REPOPATH="$1" #设置软件源目录
 cd $REPOPATH #进入根目录
 pwd
 
@@ -27,7 +27,8 @@ echo "开始刷新第二阶段：json合并"
 #    fi
 #
 #done
-/root/repo-scripts/repo_auto_update_script/repo-maintain/download-rank-json-gen.sh
+/root/repo-scripts/repo_auto_update_script/repo-maintain/download-rank-json-gen.sh $REPOPATH/store
+/root/repo-scripts/repo_auto_update_script/repo-maintain/download-rank-json-gen.sh $REPOPATH/aarch64-store
 echo "所有分类遍历完毕，json信息已经整合完成，刷新第二阶段完毕"
 
 # 同步json

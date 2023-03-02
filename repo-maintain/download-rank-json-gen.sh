@@ -1,8 +1,8 @@
 #/bin/bash
-REPOPATH="/home/ftp/spark-store" #设置软件源目录
+REPOPATH="$1" #设置软件源目录
 cd $REPOPATH #进入根目录
 
-cd store
+
 
 echo "--------排查download-times.txt是否存在阶段开始"
 for i in `ls` #for循环遍历store目录下的文件
@@ -101,7 +101,7 @@ fi
 done
 
 #####APPLIST_ALL
-cd $REPOPATH/store
+cd $REPOPATH
 rm -f applist-all.json
 cat `find . -name 'applist.json' -type f`|jq -s . > applist-all.json
 
