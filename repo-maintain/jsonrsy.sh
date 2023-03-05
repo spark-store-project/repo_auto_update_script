@@ -11,6 +11,8 @@ echo " 从gitee拉取完毕"
 
 # 从仓库更新json, 从中文json生成英文
 cd $FROM_DIR
+
+
 find store -type d -exec mkdir -p $TO_DIR\{\} \;
 
 for i in `find store -iname 'app.json' -type f`
@@ -25,6 +27,24 @@ do
 di=${i%/*}
 cp $i $TO_DIR$di/applist.json -u  # -u 表示只有当源文件比目标文件新(或者目标文件不存在)时，才会更新，这避免了冲突（我之前居然没有意识到）
 done
+######################################################
+
+find aarch64-store -type d -exec mkdir -p $TO_DIR\{\} \;
+
+for i in `find aarch64-store -iname 'app.json' -type f`
+do
+di=${i%/*}
+cp $i $TO_DIR$di/app.json -u  # -u 表示只有当源文件比目标文件新(或者目标文件不存在)时，才会更新，这避免了冲突（我之前居然没有意识到）
+cp $i $TO_DIR$di/en.app.json -u
+done
+
+for i in `find aarch64-store -iname 'applist.json' -type f`
+do
+di=${i%/*}
+cp $i $TO_DIR$di/applist.json -u  # -u 表示只有当源文件比目标文件新(或者目标文件不存在)时，才会更新，这避免了冲突（我之前居然没有意识到）
+done
+
+
 
 echo "从仓库更新完毕"
 cd $TO_DIR
