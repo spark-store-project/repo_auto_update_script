@@ -6,7 +6,8 @@ pwd
 
 #进入update阶段
 echo "开始刷新第一阶段：处理旧式投稿工具的.update文件"
-for i in $(find upload_tgz -name '*.tar.gz');do tar -xvf $i; rm $i; done
+for i in $(find store/upload_tgz -name '*.tar.gz');do tar -xvf $i -C store/; rm $i; done
+for i in $(find aarch64-store/upload_tgz -name '*.tar.gz');do tar -xvf $i -C aarch64-store/; rm $i; done
 find "${REPOPATH}" -name '*.update' -print0 | xargs -0 file-rename -f -v 's/\.update$//'
 
 echo ".update已经去除，刷新第一阶段完成"
