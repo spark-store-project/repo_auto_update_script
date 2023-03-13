@@ -5,9 +5,9 @@ export DEBIAN_FRONTEND=noninteractive
 echo "安装git devscripts equivs curl..."
 apt install git devscripts equivs curl -y 
 git clone https://gitlink.org.cn/shenmo7192/dtk-aarch64.git
-cd dtk-aarch64
-apt install dtk-full-5.4/*.deb -y
-cd ..
+cd dtk-aarch64/dtk-full-5.4/
+apt install ./*.deb -y
+cd ../..
 rm -rf dtk-aarch64
 cd build-spark/spark-store
 
