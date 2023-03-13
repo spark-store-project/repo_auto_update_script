@@ -4,9 +4,9 @@ apt update
 export DEBIAN_FRONTEND=noninteractive
 echo "安装git devscripts equivs curl..."
 apt install git devscripts equivs curl -y 
-git clone https://gitlink.org.cn/shenmo7192/dtk-old-bundle.git
-cd dtk-old-bundle
-apt install ./*.deb -y
+git clone https://gitlink.org.cn/shenmo7192/dtk-aarch64.git
+cd dtk-aarch64
+apt install dtk-full-5.4/*.deb -y
 cd ..
 rm -rf dtk-old-bundle
 mkdir build-spark
@@ -14,11 +14,11 @@ cd build-spark
 
 
 cd spark-store
-# sed -i 's/-j$(JOBS)/-j1/g' debian/rules
+
 
 mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" 
 
-dpkg-buildpackage -b -us -uc
+dpkg-buildpackage -b -us -uc -j2
 cd ..
 ls -all
 pwd
