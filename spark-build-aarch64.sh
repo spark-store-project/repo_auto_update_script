@@ -8,12 +8,8 @@ git clone https://gitlink.org.cn/shenmo7192/dtk-aarch64.git
 cd dtk-aarch64
 apt install dtk-full-5.4/*.deb -y
 cd ..
-rm -rf dtk-old-bundle
-mkdir build-spark
-cd build-spark
-
-
-cd spark-store
+rm -rf dtk-aarch64
+cd build-spark/spark-store
 
 
 mk-build-deps --install --tool "apt-get -o Debug::pkgProblemResolver=yes  -y" 
