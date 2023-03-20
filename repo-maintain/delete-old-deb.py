@@ -5,8 +5,8 @@ import subprocess
 import sys
 
 # 定义要搜索deb包的目录
-DEB_DIR="sys.argv[1]"
-
+DEB_DIR=sys.argv[1]
+print(DEB_DIR)
 # 定义一个字典来存储包名和版本号
 packages = {}
 
