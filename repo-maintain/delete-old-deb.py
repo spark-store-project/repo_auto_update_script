@@ -32,17 +32,9 @@ for package_name in packages:
     for root, dirs, files in os.walk(DEB_DIR):
         for file in files:
             if file.endswith(".deb"):
-                deb_package = os.path.join(root, file)
-                # 获取包名和版本号
-                package_name = subprocess.check_output(["dpkg-deb", "-f", deb_package, "Package"]).decode().strip()
-                package_version = subprocess.check_output(["dpkg-deb", "-f", deb_package, "Version"]).decode().strip()
-                print(f"{package_name} {package_version} {deb_package} 正在被检验（我也不理解为啥要跑这么多次）")
-                # 检查包名是否已经存在于列表中
-
-                if subprocess.call(["dpkg", "--compare-versions", package_version, "gt", packages[package_name]]) == 0:
-                     packages[package_name] = package_version
-
-                if package_version != packages[package_name]:
-                    print(f"{package_name} {package_version} {deb_package} 已删除")
-                    os.remove(deb_package)
-
+                if file.startswith(package_name) and file[len(package_name)] == "_" and file.endswith(".deb"):
+                    deb_package = os.path.join(root, file)
+                    package_version = subprocess.check_output(["dpkg-deb", "-f", deb_package, "Version"]).decode().strip()
+                    if package_version != packages[package_name]:
+                        print(f"{package_name} {package_version} {deb_package} 已删除")
+                        os.remove(deb_package)
