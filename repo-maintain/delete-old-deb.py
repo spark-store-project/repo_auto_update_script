@@ -3,17 +3,16 @@
 import os
 import subprocess
 import sys
-from tqdm import tqdm
+
 # 定义要搜索deb包的目录
 DEB_DIR=sys.argv[1]
 print(DEB_DIR)
 # 定义一个字典来存储包名和版本号
 packages = {}
 
-
 # 循环遍历目录中的所有deb包
 for root, dirs, files in os.walk(DEB_DIR):
-    for file in tqdm(files):
+    for file in files:
         if file.endswith(".deb"):
             deb_package = os.path.join(root, file)
             # 获取包名和版本号
