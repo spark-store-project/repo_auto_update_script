@@ -23,9 +23,11 @@ for root, dirs, files in os.walk(DEB_DIR):
                 # 如果包版本更高，则更新版本号
                 if subprocess.call(["dpkg", "--compare-versions", package_version, "gt", packages[package_name]]) == 0:
                     packages[package_name] = package_version
+                    print(f"{package_name} {package_version} {deb_package}")
             else:
                 # 如果包名不存在，则将其添加到列表中
                 packages[package_name] = package_version
+
 
 # 循环遍历包列表并删除任何旧版本
 for package_name in packages:
@@ -39,5 +41,3 @@ for package_name in packages:
                 if package_version != packages[package_name]:
                     print(f"{package_name} {package_version} {deb_package} 已删除")
                     os.remove(deb_package)
-
-
