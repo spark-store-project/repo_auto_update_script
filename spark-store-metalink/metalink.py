@@ -16,7 +16,7 @@ torrent_url = 'https://d.store.deepinos.org.cn/'
 with open(example_file_path, 'r') as example_file:
     example_data = example_file.readline()
 
-with open(cdn_file_path, 'r') as cdn_file:
+with open(cdn_file_path, 'r', encoding='utf-8') as cdn_file:
     cdn_urls = []
     cdn_file_data = cdn_file.readlines()
 
@@ -25,13 +25,13 @@ with open(cdn_file_path, 'r') as cdn_file:
             cdn_urls.append(cdn_file_data[i].replace('\n', ''))
 
 
-with open(torrent_file_path, 'r') as torrent_file:
+with open(torrent_file_path, 'r', encoding='utf-8') as torrent_file:
     torrent_data = json.load(torrent_file)
     for i in range(len(torrent_data)):
         torrent_data[i] = torrent_data[i].replace(
             'http://d.store.deepinos.org.cn/store/', '')
 
-with open(pacakges_file_path, 'r') as pacakges_file:
+with open(pacakges_file_path, 'r', encoding='utf-8', errors='ignore') as pacakges_file:
     pacakges_file_data = pacakges_file.readlines()
 
 for i in range(len(pacakges_file_data)):
@@ -70,5 +70,5 @@ for i in range(len(pacakges_file_data)):
         if not os.path.exists(i_dir):
             print('Dir have been deleted, so we pass it:' + str(i_dir))
         else:
-            with open(i_meta_filename,'w') as f:
+            with open(i_meta_filename,'w', encoding='utf-8') as f:
                 f.write(xml_pretty_str)
