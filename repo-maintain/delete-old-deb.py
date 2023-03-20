@@ -36,4 +36,5 @@ for package_name in packages:
                 deb_package = os.path.join(root, file)
                 package_version = subprocess.check_output(["dpkg-deb", "-f", deb_package, "Version"]).decode().strip()
                 if package_version != packages[package_name]:
-                        os.remove(deb_package)
+                    print(f"{package_name} {package_version} {deb_package} 已删除")
+                    os.remove(deb_package)
