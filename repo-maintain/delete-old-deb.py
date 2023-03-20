@@ -36,6 +36,14 @@ for package_name in packages:
                 # 获取包名和版本号
                 package_name = subprocess.check_output(["dpkg-deb", "-f", deb_package, "Package"]).decode().strip()
                 package_version = subprocess.check_output(["dpkg-deb", "-f", deb_package, "Version"]).decode().strip()
+                # 检查包名是否已经存在于列表中
+                if package_name in packages:
+                    # 如果包版本更高，则更新版本号
+                    if subprocess.call(["dpkg", "--compare-versions", package_version, "gt", packages[package_name]]) == 0:
+                        packages[package_name] = package_version
+                else:
+                    # 如果包名不存在，则将其添加到列表中
+                    packages[package_name] = package_version
                 if package_version != packages[package_name]:
                     print(f"{package_name} {package_version} {deb_package} 已删除")
                     os.remove(deb_package)
