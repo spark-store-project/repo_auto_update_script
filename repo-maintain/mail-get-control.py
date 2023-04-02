@@ -36,7 +36,8 @@ def get_email():
         email_body = email_body.replace('\r\n', '\n')
 
         # 检查邮件内容
-        if 'check=i love amber forever' not in email_body:
+        
+        if email_body is None or 'check=i love amber forever' not in email_body:
             server.dele(i)
             print('邮件无验证信息，可能为垃圾邮件，丢弃')
         else:
