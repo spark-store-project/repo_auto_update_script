@@ -32,34 +32,37 @@ def get_email():
         email_content = email.message_from_string('\n'.join(email_content))
 
         # 获取邮件正文
-        email_body = email_content.get_payload(decode=True).decode()
-        email_body = email_body.replace('\r\n', '\n')
-
-        # 检查邮件内容
-        
-        if email_body is None or 'check=i love amber forever' not in email_body:
+        email_body = email_content.get_payload(decode=True)
+        if email_body is None:
             server.dele(i)
             print('邮件无验证信息，可能为垃圾邮件，丢弃')
         else:
-            print('开始检验指令')
-            command = re.search(r'command:(.*)', email_body).group(1)
-            app_location = re.search(r'APP_LOCATION=(.*)', email_body).group(1)
+            email_body = email_body.decode().replace('\r\n', '\n')
 
-            # 执行指令
-            if command == 'download_count':
-                download_times_file = os.path.join('/home/ftp/spark-store', app_location, 'download-times.txt')
-                with open(download_times_file, 'r') as f:
-                    already_downloaded_num = int(f.read())
-                already_downloaded_num += 1
-                with open(download_times_file, 'w') as f:
-                    f.write(str(already_downloaded_num))
-                    print(f'{app_location} 现在的下载量为 {already_downloaded_num}')
+            # 检查邮件内容
+            if 'check=i love amber forever' not in email_body:
+                server.dele(i)
+                print('邮件无验证信息，可能为垃圾邮件，丢弃')
             else:
-                print('未定义的行为，抛弃')
+                print('开始检验指令')
+                command = re.search(r'command:(.*)', email_body).group(1)
+                app_location = re.search(r'APP_LOCATION=(.*)', email_body).group(1)
 
-            # 删除邮件
-            server.dele(i)
-            email_count -= 1
+                # 执行指令
+                if command == 'download_count':
+                    download_times_file = os.path.join('/home/ftp/spark-store', app_location, 'download-times.txt')
+                    with open(download_times_file, 'r') as f:
+                        already_downloaded_num = int(f.read())
+                    already_downloaded_num += 1
+                    with open(download_times_file, 'w') as f:
+                        f.write(str(already_downloaded_num))
+                        print(f'{app_location} 现在的下载量为 {already_downloaded_num}')
+                else:
+                    print('未定义的行为，抛弃')
+
+                # 删除邮件
+                server.dele(i)
+                email_count -= 1
         i += 1
 
     # 关闭连接
@@ -70,3 +73,4 @@ def get_email():
 
 if __name__ == '__main__':
     get_email()
+
