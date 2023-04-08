@@ -51,12 +51,15 @@ def get_email():
                 # 执行指令
                 if command == 'download_count':
                     download_times_file = os.path.join('/home/ftp/spark-store', app_location, 'download-times.txt')
-                    with open(download_times_file, 'r') as f:
-                        already_downloaded_num = int(f.read())
-                    already_downloaded_num += 1
-                    with open(download_times_file, 'w') as f:
-                        f.write(str(already_downloaded_num))
-                        print(f'{app_location} 现在的下载量为 {already_downloaded_num}')
+                    try:
+                        with open(download_times_file, 'r') as f:
+                            already_downloaded_num = int(f.read())
+                        already_downloaded_num += 1
+                        with open(download_times_file, 'w') as f:
+                            f.write(str(already_downloaded_num))
+                            print(f'{app_location} 现在的下载量为 {already_downloaded_num}')
+                    except FileNotFoundError:
+                        print(f'未找到文件{download_times_file}，跳过')
                 else:
                     print('未定义的行为，抛弃')
 
