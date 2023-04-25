@@ -101,9 +101,9 @@ fi
 done
 
 #####APPLIST_ALL
-cd $REPOPATH
-rm -f applist-all.json
-cat `find . -name 'applist.json' -type f`|jq -s . > applist-all.json
+#cd $REPOPATH
+#rm -f applist-all.json
+#cat `find . -name 'applist.json' -type f`|jq -s . > applist-all.json
 
 
 
