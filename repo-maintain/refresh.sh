@@ -38,8 +38,8 @@ echo "所有分类遍历完毕，json信息已经整合完成，刷新第二阶�
 echo "开始刷新第三阶段：同步推送"
 bash /root/repo-scripts/repo_auto_update_script/repo-maintain/jsonrsy.sh
 #同步 图片
-#bash /root/repo-scripts/repo_auto_update_script/repo-maintain/pngrsy.sh
-echo "Gitlink薅秃了，不再同步"
+bash /root/repo-scripts/repo_auto_update_script/repo-maintain/pngrsy.sh
+
 # 不再用 jsd 不需要同步了
 # bash /root/syn_jsonpic_jsd.sh
 
