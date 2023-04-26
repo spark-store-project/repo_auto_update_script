@@ -12,30 +12,12 @@ echo " 从gitlink拉取完毕"
 mkdir -p store/home/links
 mkdir -p aarch64-store/home/links
 
-# 从仓库更新png
+rsync -av --delete --include='*.png' --exclude='*' $FROM_DIR $TO_DIR
+
 cd $FROM_DIR
 cp store/home/links/*.png $TO_DIR/store/home/links/ -u
-find store -type d -exec mkdir -p $TO_DIR\{\} \;
-
-for i in `find store -iname 'icon.png' -type f`
-do
-di=${i%/*}
-cp $i $TO_DIR$di/icon.png -u  # -u 表示只有当源文件比目标文件新(或者目标文件不存在)时，才会更新，这避免了冲突（我之前居然没有意识到）
-done
-#########################################
-
-# 从仓库更新png
-cd $FROM_DIR
 cp aarch64-store/home/links/*.png $TO_DIR/aarch64-store/home/links/ -u
-find aarch64-store -type d -exec mkdir -p $TO_DIR\{\} \;
 
-for i in `find aarch64-store -iname 'icon.png' -type f`
-do
-di=${i%/*}
-cp $i $TO_DIR$di/icon.png -u  # -u 表示只有当源文件比目标文件新(或者目标文件不存在)时，才会更新，这避免了冲突（我之前居然没有意识到）
-done
-
-echo "从仓库更新完毕"
 cd $TO_DIR
 
 #合并仓库生成的新json和来自gitee仓库的pr推送到gitee
