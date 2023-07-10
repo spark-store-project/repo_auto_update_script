@@ -166,7 +166,7 @@ if [ "$iszstd" != "" ];then
     	echo "This is debian package with zstd! Unpack and repack..."
 	mkdir -p "$TMPDIR/unpack-dir"
 	cd "$TMPDIR/unpack-dir"
-	ar -vx "$DEB_PATH" 
+	ar -vx "$DEBPATH" 
 	rm debian-binary
 	tar -I zstd -xvf data.tar.zst
 	mkdir DEBIAN

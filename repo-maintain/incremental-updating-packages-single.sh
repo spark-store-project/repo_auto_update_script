@@ -49,7 +49,7 @@ if [ "$iszstd" != "" ];then
     	echo "This is debian package with zstd! Unpack and repack..."
 	mkdir -p "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
 	cd "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
-	ar -vx "$DEB_PATH" 
+	ar -vx "$REPO_DIR/$DEB_PATH" 
 	rm debian-binary
 	tar -I zstd -xvf data.tar.zst
 	mkdir DEBIAN
