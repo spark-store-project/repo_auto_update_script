@@ -48,11 +48,17 @@ if [ "$iszstd" != "" ];then
 	echo "这是zstd包！解压并重新打包"
     	echo "This is debian package with zstd! Unpack and repack..."
 	mkdir -p "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
-	dpkg -X "$DEB_PATH" "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir" 
-	dpkg -e "$DEB_PATH" "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir/DEBIAN"
+	cd "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
+	ar -vx "$DEB_PATH" 
+	rm debian-binary
+	tar -I zstd -xvf data.tar.zst
+	mkdir DEBIAN
+	tar -I zstd -xvf control.tar.zst -C ./DEBIAN
+	rm data.tar.zst control.tar.zst
 	dpkg-deb -Z xz  -b "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir/" "$REPO_DIR/`dirname $DEB_PATH`"
 	echo 重打包已完成，删除tmp
-    echo "Repack finished. Remove tmp dir"
+    	echo "Repack finished. Remove tmp dir"
+	cd $REPO_DIR
 	rm -rf "$DATA_DIR/`dirname $DEB_PATH`/unpack-dir"
 	
 	
