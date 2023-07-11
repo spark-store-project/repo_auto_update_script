@@ -3,11 +3,11 @@ FROM_DIR=/home/ftp/spark-store/
 TO_DIR=/home/ftp/json/
 
 cd $TO_DIR
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/jerrygithub
+#eval "$(ssh-agent -s)"
+#ssh-add ~/.ssh/jerrygithub
 git pull origin
 
-rsync -av --delete --include='*.json' --exclude='*' $FROM_DIR $TO_DIR
+rsync -av --delete --include='*.json' --exclude='*.*' $FROM_DIR $TO_DIR
 
 
 cd $TO_DIR
