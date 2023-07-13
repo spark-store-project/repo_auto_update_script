@@ -1,0 +1,23 @@
+#/bin/bash -e
+TMPDIR=/tmp
+DEBPATH="$1"
+OUTPATH=`dirname $1`
+rm -rf $TMPDIR/unpack-dir
+	mkdir -p "$TMPDIR/unpack-dir"
+	cd "$TMPDIR/unpack-dir"
+	ar -vx "$DEBPATH" 
+	rm debian-binary
+	tar -xvf data.tar*
+	mkdir DEBIAN
+	tar -xvf control.tar* -C ./DEBIAN
+	rm data.tar* control.tar*
+	dpkg-deb -Z xz  -b "$TMPDIR/unpack-dir/" "$OUTPATH"
+	echo 重打包已完成，删除tmp
+    	echo "Repack finished. Remove tmp dir"
+	rm -rf "$TMPDIR/unpack-dir"
+
+	exit
+	
+
+
+echo "---------------------------------------------------------------------------"
