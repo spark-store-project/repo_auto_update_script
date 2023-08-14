@@ -1,10 +1,12 @@
 import os
 import sys
+import logging
 from flask import Flask, request
 
 app = Flask(__name__)
 
 @app.route('/handle_post', methods=['POST'])
+
 def handle_post():
     data = request.get_json()
     path = data.get('path')
@@ -41,4 +43,5 @@ if __name__ == '__main__':
         sys.exit(1)
     
     REPOPATH = sys.argv[1]
+    app.logger.setLevel(logging.INFO)
     app.run(host='0.0.0.0',port=38324)
